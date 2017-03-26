@@ -1,8 +1,9 @@
-package com.example.vibodha.pinit;
+package com.example.vibodha.pinit.View;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.example.vibodha.pinit.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
