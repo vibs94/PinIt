@@ -16,14 +16,17 @@ public class Reminder extends Task {
     private String note;
     private ArrayList<Date> listOfwakeupTimes = new ArrayList<Date>();
     private ArrayList<Activity> activities = new ArrayList<Activity>();
-    private int priorityLevel;
 
 
-    public Reminder(int id, Location location, boolean isCompleted, int range, int priorityLevel, ArrayList<Activity> activities, String note) {
+
+    public Reminder(int id, Location location, boolean isCompleted, int range, ArrayList<Activity> activities, String note) {
         super(id, location, isCompleted, range);
-        this.priorityLevel = priorityLevel;
         this.activities = activities;
         this.note = note;
+    }
+
+    public void setListOfwakeupTimes(ArrayList<Date> listOfwakeupTimes) {
+        this.listOfwakeupTimes = listOfwakeupTimes;
     }
 
     public void reportWakeup(){
@@ -46,7 +49,4 @@ public class Reminder extends Task {
         return activities;
     }
 
-    public int getPriorityLevel() {
-        return priorityLevel;
-    }
 }
