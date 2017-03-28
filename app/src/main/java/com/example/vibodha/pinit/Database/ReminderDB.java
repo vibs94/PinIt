@@ -126,6 +126,8 @@ public class ReminderDB {
 
     }
 
+
+    //get reminder by id
     public Reminder getReminder(int id) throws ParseException {
 
         String query;
@@ -233,6 +235,7 @@ public class ReminderDB {
         return  reminder;
     }
 
+    //get all the reminders
     public ArrayList<Reminder> getReminders() throws ParseException {
 
         SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();

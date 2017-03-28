@@ -16,8 +16,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.vibodha.pinit.R;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.security.ProviderInstaller;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private final int REQUEST_CODE_PLACEPICKER = 1;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -61,8 +65,18 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent map = new Intent(MainActivity.this,MapsActivity.class);
-                startActivity(map);
+//                Intent map = new Intent(MainActivity.this,MapsActivity.class);
+//                startActivity(map);
+
+                PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
+
+                try{
+                    Intent intent = intentBuilder.build(MainActivity.this);
+                    startActivityForResult(intent,REQUEST_CODE_PLACEPICKER);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -74,6 +88,13 @@ public class MainActivity extends AppCompatActivity {
         mToggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected void onActivityResult(int reqestCode, int resultCode, Intent data){
+        if(reqestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK){
+            Toast.makeText(this,"selected",Toast.LENGTH_LONG).show();
+        }
     }
 
 
