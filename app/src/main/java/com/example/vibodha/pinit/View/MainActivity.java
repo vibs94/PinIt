@@ -1,5 +1,6 @@
 package com.example.vibodha.pinit.View;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -21,10 +22,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.vibodha.pinit.R;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.security.ProviderInstaller;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDialogListner{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -44,11 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    Place place;
 
+    FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+         fragmentManager = getSupportFragmentManager();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -95,13 +101,38 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int reqestCode, int resultCode, Intent data){
         if(reqestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK){
-            AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-            View mView = getLayoutInflater().inflate(R.layout.task_dialod,null);
-            mBuilder.setView(mView);
-            AlertDialog dialog = mBuilder.create();
-            dialog.show();
+//            AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+//            View mView = getLayoutInflater().inflate(R.layout.task_dialog,null);
+//            mBuilder.setView(mView);
+//            AlertDialog dialog = mBuilder.create();
+//            dialog.show();
+//            TaskDialog taskDialog = new TaskDialog();
+//            taskDialog.show(fragmentManager,"TaskDialog");
+            place = PlacePicker.getPlace(data,this);
+            new AlertDialog.Builder(this)
+                    .setTitle("Alert")
+                    .setMessage("What task do you want?")
+                    .setPositiveButton("Reminder", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dothis();
+                        }
+                    })
+                    .setNegativeButton("Arrival Alarm", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(MainActivity.this,"N",Toast.LENGTH_SHORT).show();
+
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+
+
         }
      }
+
+
 
 
     @Override
@@ -128,6 +159,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void dothis() {
+        Intent addReminder = new Intent(this, AddReminder.class);
+        addReminder.putExtra("placeName",place.getName().toString()+" "+place.getAddress().toString());
+        addReminder.putExtra("placeLat",Double.toString(place.getLatLng().latitude));
+        addReminder.putExtra("placeLon",Double.toString(place.getLatLng().longitude));
+        startActivity(addReminder);
     }
 
     /**

@@ -81,23 +81,23 @@ public class ReminderDB {
             return false;
         }
         //insert reminder
+        reminderTableValues.put("reminder_id",reminder.getTaskId());
         reminderTableValues.put("location_id",locationID);
         reminderTableValues.put("time_id_of_completion","-1");
         reminderTableValues.put("priority_id",priorityID);
         reminderTableValues.put("is_completed","0");
         reminderTableValues.put("note",reminder.getNote());
         result = dbWrite.insert("REMINDER_TASK",null,reminderTableValues);
-        if(result>0){
-            reminderID = getNextReminderID();
-        }
-        else{
+        if(result<0){
             return false;
         }
+
         //insert activities
         activities = reminder.getActivities();
         for(int i=0;i<activities.size();i++){
             activityTableValues = new ContentValues();
-            activityTableValues.put("reminder_id",reminderID);
+            activityTableValues.put("activity_id",activities.get(i).getId());
+            activityTableValues.put("reminder_id",reminder.getTaskId());
             activityTableValues.put("time_id_of_completion","-1");
             activityTableValues.put("description",activities.get(i).getDescription());
             if(result==-1) {
@@ -108,6 +108,20 @@ public class ReminderDB {
         dbRead.close();
         dbWrite.close();
         return true;
+    }
+
+    public int getNextActivityID(){
+        int maxID=0;
+        String query;
+        SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
+
+        query = "Select Max(activity_id) as max_id from ACTIVITY;";
+        Cursor cursor=dbRead.rawQuery(query,null);
+        if(cursor.moveToNext()){
+            maxID=cursor.getInt(cursor.getColumnIndex("max_id"));
+        }
+
+        return maxID+1;
     }
 
     public int getNextReminderID(){

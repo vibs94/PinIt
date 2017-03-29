@@ -1,13 +1,18 @@
 package com.example.vibodha.pinit.View;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.vibodha.pinit.Model.Activity;
 import com.example.vibodha.pinit.R;
 
 /**
@@ -16,21 +21,43 @@ import com.example.vibodha.pinit.R;
 
 public class TaskDialog extends DialogFragment{
 
-    @Nullable
+    TaskDialogListner taskDialogListner;
+
+    public interface TaskDialogListner{
+        void dothis();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.task_dialod,container,false) ;
+        View view = inflater.inflate(R.layout.task_dialog,container,false) ;
 
-        Button mbtnReminder = (Button) view.findViewById(R.id.btn_reminder);
-        mbtnReminder.setOnClickListener(new View.OnClickListener(){
+        Log.e("weda","dddddd");
+
+
+        Button mbtnReminder = (Button) view.findViewById(R.id.button4);
+
+        mbtnReminder.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view1){
-
+            public void onClick(View v) {
+                Toast.makeText((Context) taskDialogListner,"clicked",Toast.LENGTH_SHORT).show();
+                Log.e("gh","fgfhfhfhfh");
+                taskDialogListner.dothis();
             }
         });
+
 
         return view;
 
     }
 
+    @Override
+    public void onAttach(android.app.Activity activity) {
+        super.onAttach(activity);
+        try {
+            taskDialogListner = (TaskDialogListner) activity;
+        }
+        catch (Exception e){
+
+        }
+    }
 }
