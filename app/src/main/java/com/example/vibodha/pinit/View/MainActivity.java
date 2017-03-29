@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.vibodha.pinit.R;
@@ -93,9 +95,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int reqestCode, int resultCode, Intent data){
         if(reqestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK){
-            Toast.makeText(this,"selected",Toast.LENGTH_LONG).show();
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+            View mView = getLayoutInflater().inflate(R.layout.task_dialod,null);
+            mBuilder.setView(mView);
+            AlertDialog dialog = mBuilder.create();
+            dialog.show();
         }
-    }
+     }
 
 
     @Override
