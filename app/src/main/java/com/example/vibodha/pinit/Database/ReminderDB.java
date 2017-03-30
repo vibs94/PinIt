@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.vibodha.pinit.Model.Activity;
 import com.example.vibodha.pinit.Model.Location;
@@ -161,6 +162,7 @@ public class ReminderDB {
         String note="";
         boolean isCompleted=false;
         DateFormat dateFormat;
+        String locationName="";
         double lon=0.0;
         double lat=0.0;
         Cursor cursor;
@@ -211,11 +213,11 @@ public class ReminderDB {
         query = String.format("select * from LOCATION where location_id = %s;",locationID);
         cursor = dbRead.rawQuery(query,null);
         if(cursor.moveToNext()){
-            note = cursor.getString(cursor.getColumnIndex("name"));
+            locationName = cursor.getString(cursor.getColumnIndex("name"));
             lon = cursor.getDouble(cursor.getColumnIndex("lon"));
             lat = cursor.getDouble(cursor.getColumnIndex("lat"));
         }
-        location = new Location(note,lon,lat);
+        location = new Location(locationName,lon,lat);
 
         //set range
         query = String.format("select * from PRIORITY where priority_id = %s;",priorityID);

@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.vibodha.pinit.R;
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
                     .setPositiveButton("Reminder", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            dothis();
+                            showAddReminder();
                         }
                     })
                     .setNegativeButton("Arrival Alarm", new DialogInterface.OnClickListener() {
@@ -162,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
     }
 
     @Override
-    public void dothis() {
+    public void showAddReminder() {
         Intent addReminder = new Intent(this, AddReminder.class);
         addReminder.putExtra("placeName",place.getName().toString()+" "+place.getAddress().toString());
         addReminder.putExtra("placeLat",Double.toString(place.getLatLng().latitude));

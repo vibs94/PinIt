@@ -66,7 +66,7 @@ public class TestActivity extends AppCompatActivity implements TaskDialog.TaskDi
     }
 
     @Override
-    public void dothis() {
+    public void showAddReminder() {
         Intent addReminder = new Intent(this, AddReminder.class);
         addReminder.putExtra("placeName",place.getName().toString());
         addReminder.putExtra("placeLat",Double.toString(place.getLatLng().latitude));

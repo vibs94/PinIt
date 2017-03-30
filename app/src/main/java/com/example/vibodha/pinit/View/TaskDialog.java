@@ -1,9 +1,7 @@
 package com.example.vibodha.pinit.View;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.vibodha.pinit.Model.Activity;
 import com.example.vibodha.pinit.R;
 
 /**
@@ -24,7 +21,7 @@ public class TaskDialog extends DialogFragment{
     TaskDialogListner taskDialogListner;
 
     public interface TaskDialogListner{
-        void dothis();
+        void showAddReminder();
     }
 
     @Override
@@ -41,7 +38,7 @@ public class TaskDialog extends DialogFragment{
             public void onClick(View v) {
                 Toast.makeText((Context) taskDialogListner,"clicked",Toast.LENGTH_SHORT).show();
                 Log.e("gh","fgfhfhfhfh");
-                taskDialogListner.dothis();
+                taskDialogListner.showAddReminder();
             }
         });
 

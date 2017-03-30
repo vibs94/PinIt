@@ -90,9 +90,10 @@ public class AddReminder extends AppCompatActivity {
                         // set Reminder
                         int reminderID = reminderDB.getNextReminderID();
                         String note = ((EditText) findViewById(R.id.note)).getText().toString();
+                        //Toast.makeText(AddReminder.this, "Set the Priority Level!!!", Toast.LENGTH_SHORT).show();
                         reminder = new Reminder(reminderID, location, false, range, activities, note);
                         if (reminderDB.addReminder(reminder)) {
-                            Toast.makeText(AddReminder.this, "Reminder added successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddReminder.this, "Reminder added successfully ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(AddReminder.this, MainActivity.class);
                             startActivity(intent);
                         } else {
