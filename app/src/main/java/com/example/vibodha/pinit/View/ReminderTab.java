@@ -36,6 +36,7 @@ public class ReminderTab extends android.support.v4.app.Fragment {
         View view = inflater.inflate(R.layout.reminder_tab,container,false);
         ReminderDB reminderDB = ReminderDB.getInstance(this.getContext());
         try {
+            // create reminder list
             ArrayList<Reminder> reminderList = reminderDB.getReminders();
             Reminder[] reminders = reminderList.toArray(new Reminder[reminderList.size()]);
             ListAdapter reminderListAdapter = new ReminderListAdapter(this.getContext(),reminders);

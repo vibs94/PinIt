@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -92,6 +93,21 @@ public class ReminderListAdapter extends ArrayAdapter<Reminder> {
                 Log.w("Clickafter",""+activityListView.getVisibility());
             }
         });
+
+//        activityListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Log.w("Clickbefore",""+activityListView.getVisibility());
+//                if(checkBoxLayout.getVisibility()==View.GONE) {
+//                    checkBoxLayout.setVisibility(View.VISIBLE);
+//                }
+//                else{
+//                    checkBoxLayout.setVisibility(View.GONE);
+//                }
+//                Log.w("Clickafter",""+activityListView.getVisibility());
+//            }
+//
+//        });
 
         return customView;
     }

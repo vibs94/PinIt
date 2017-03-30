@@ -36,14 +36,15 @@
     android:layout_height="wrap_content"
     android:visibility="gone"
     android:id="@+id/list_layout"
+    android:orientation="vertical"
     >
+
+</LinearLayout>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reminder_activity_list"
-
+android:visibility="gone"
         />
-</LinearLayout>
-
-
 </LinearLayout>
