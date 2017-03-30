@@ -101,6 +101,7 @@ public class ReminderDB {
             activityTableValues.put("reminder_id",reminder.getTaskId());
             activityTableValues.put("time_id_of_completion","-1");
             activityTableValues.put("description",activities.get(i).getDescription());
+            result = dbWrite.insert("ACTIVITY",null,activityTableValues);
             if(result==-1) {
                 return false;
             }
@@ -193,6 +194,8 @@ public class ReminderDB {
             }
             activities.add(activity);
         }
+
+        Log.w("#activities",Integer.toString(activities.size()));
 
         //set reminder
         query = String.format("select * from REMINDER_TASK where reminder_id = %s;",id);

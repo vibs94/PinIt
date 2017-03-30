@@ -44,6 +44,9 @@ public class ReminderTab extends android.support.v4.app.Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+
+
         return view;
     }
 }
