@@ -4,7 +4,10 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,6 +45,8 @@ public class ReminderTab extends android.support.v4.app.Fragment {
             ListAdapter reminderListAdapter = new ReminderListAdapter(this.getContext(),reminders);
             ListView reminderListView = (ListView) view.findViewById(R.id.allreminder_list);
             reminderListView.setAdapter(reminderListAdapter);
+            registerForContextMenu(reminderListView);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -49,5 +54,13 @@ public class ReminderTab extends android.support.v4.app.Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v,menuInfo);
+        //MenuInflater inflater = getM
+
+
     }
 }

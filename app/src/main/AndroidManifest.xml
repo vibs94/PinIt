@@ -41,7 +41,7 @@
 
         <activity
             android:name=".View.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -51,14 +51,15 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDOdx9py_9eden-RGBeRzZazdq9xBqtxQQ" />
-        <!--<meta-data-->
-            <!--android:name="com.google.android.maps.v2.API_KEY"-->
-            <!--android:value="AIzaSyDVCv3lM7M8UcVfT3YmlIEflWgzqdaAFss" />-->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.maps.v2.API_KEY" -->
+        <!-- android:value="AIzaSyDVCv3lM7M8UcVfT3YmlIEflWgzqdaAFss" /> -->
 
         <activity
             android:name=".View.TestActivity"
             android:label="@string/title_activity_teat"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".View.ViewReminder"></activity>
     </application>
 
 </manifest>

@@ -26,7 +26,7 @@ import static com.example.vibodha.pinit.R.layout.reminder_list;
 
 public class ActivityListAdapter extends ArrayAdapter<Activity> {
     public ActivityListAdapter(Context context, Activity[] activities) {
-        super(context, activity_list,activities);
+        super(context, R.layout.activity_list,activities);
     }
 
     @NonNull
@@ -54,6 +54,6 @@ public class ActivityListAdapter extends ArrayAdapter<Activity> {
         }
 
 
-        return convertView;
+        return customView;
     }
 }

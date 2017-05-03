@@ -8,142 +8,136 @@
     tools:context="com.example.vibodha.pinit.View.AddReminder">
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+
+                >
+                <TextView
+                    android:text="  Add Reminder"
+                    android:textSize="20dp"
+                    android:textColor="#ffffff"
+                    android:background="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:id="@+id/textView3"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:hint="Name"
+                        android:ems="10"
+                        android:id="@+id/txt_locationName"
+
+                         />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:hint="Latitude"
+                        android:ems="10"
+                        android:id="@+id/txt_lat"
+
+                         />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:hint="Longitude"
+                        android:ems="10"
+                        android:id="@+id/txt_lon"
+
+                         />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:inputType="textMultiLine"
+                        android:ems="10"
+                        android:hint="Note"
+                        android:textAlignment="textStart"
+                        android:id="@+id/note"
+
+                         />
+
+                    <TextView
+                        android:text="Priority"
+                        android:textSize="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:id="@+id/textView"
+                        />
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="0dp"
+                        android:id="@+id/reminder_ratingBar"
+
+                        />
+
+                    <TextView
+                        android:text="Activities"
+                        android:textSize="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView5"
+                        android:layout_marginTop="13dp" />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
-            >
-            <TextView
-                android:text="  Add Reminder"
-                android:textSize="20dp"
-                android:textColor="#ffffff"
-                android:background="@color/colorPrimary"
+            <Button
+                android:id="@+id/btn_add_activity"
+                android:layout_width="36dp"
+                android:layout_height="38dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/add" />
+
+            <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:hint="Add Activity"
+                        android:ems="10"
+                        android:layout_marginTop="0dp"
+                        android:id="@+id/txt_activity" />
+            </LinearLayout>
+
+            <ListView
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:id="@+id/textView3"
-                android:layout_alignParentTop="true"
+                android:layout_height="100dp"
+                android:id="@+id/activity_list"
+                android:layout_alignStart="@+id/button2"
+                android:layout_alignParentTop="true" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Add Reminder"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/btn_add_reminder"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="15dp"
-                >
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:hint="Name"
-                    android:ems="10"
-                    android:id="@+id/txt_locationName"
-
-                     />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:hint="Latitude"
-                    android:ems="10"
-                    android:id="@+id/txt_lat"
-
-                     />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:hint="Longitude"
-                    android:ems="10"
-                    android:id="@+id/txt_lon"
-
-                     />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="75dp"
-                    android:inputType="textMultiLine"
-                    android:ems="10"
-                    android:hint="Note"
-                    android:textAlignment="textStart"
-                    android:id="@+id/note"
-
-                     />
-
-                <TextView
-                    android:text="Priority"
-                    android:textSize="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:id="@+id/textView"
-                    />
-
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:id="@+id/reminder_ratingBar"
-
-                    />
-
-                <TextView
-                    android:text="Activities"
-                    android:textSize="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView5"
-                    android:layout_marginTop="13dp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <Button
-            android:id="@+id/btn_add_activity"
-            android:layout_width="36dp"
-            android:layout_height="38dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/add" />
-
-        <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:hint="Add Activity"
-                    android:ems="10"
-                    android:layout_marginTop="0dp"
-                    android:id="@+id/txt_activity" />
-
-
-    </LinearLayout>
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/activity_list"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="86dp"
-                    android:layout_alignStart="@+id/button2"
-                    android:layout_alignParentTop="true" />
 
 
 
             </LinearLayout>
+    </ScrollView>
 
-        </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Reminder"
-        android:layout_marginTop="17dp"
-        android:layout_marginLeft="20dp"
-        android:id="@+id/btn_add_reminder"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="50dp" />
 
 </RelativeLayout>
