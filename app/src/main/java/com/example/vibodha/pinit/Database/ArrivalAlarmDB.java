@@ -5,11 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.vibodha.pinit.Model.Activity;
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
 import com.example.vibodha.pinit.Model.Contact;
+import com.example.vibodha.pinit.Model.Location;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by vibodha on 5/3/17.
@@ -106,6 +110,108 @@ public class ArrivalAlarmDB {
 
         return maxID+1;
 
+    }
+
+    public ArrivalAlarm getArrivalAlarm(int id) throws ParseException{
+        ArrivalAlarm arrivalAlarm =  null;
+        Location location;
+        Contact contact;
+        ArrayList<Contact> contacts = new ArrayList<Contact>();
+        String conName;
+        String conNo;
+        int location_id =0 ;
+        int time_id=0;
+        int range = 0;
+        int successor_alarm_id=0;
+        boolean isWakeup=false;
+        String locationName="";
+        double lon=0.0;
+        double lat=0.0;
+        String time ="";
+        java.text.DateFormat dateFormat;
+        Date timeOfCompletion = null;
+        ArrivalAlarm successorAlarm =  null;
+
+        String query;
+        Cursor cursor;
+        SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
+
+        ////////////// Set Contacts ///////////////
+        query = String.format("select * from CONTACT where arrival_alarm_id = %s",id);
+        cursor = dbRead.rawQuery(query,null);
+        while(cursor.moveToNext()){
+            conName = cursor.getString(cursor.getColumnIndex("name"));
+            conNo = cursor.getString(cursor.getColumnIndex("phone_number"));
+            contact = new Contact(conName,conNo);
+            contacts.add(contact);
+        }
+
+        //////////////////////// Set Reminder ////////////
+        query = String.format("select * from ARRIVAL_ALARM_TASK where arrival_alarm_id = %s",id);
+        cursor = dbRead.rawQuery(query,null);
+        if(cursor.moveToNext()){
+            location_id = cursor.getInt(cursor.getColumnIndex("location_id"));
+            time_id = cursor.getInt(cursor.getColumnIndex("time_id_of_completion"));
+            range = cursor.getInt(cursor.getColumnIndex("range"));
+            successor_alarm_id = cursor.getInt(cursor.getColumnIndex("successor_alarm_id"));
+            if(cursor.getInt(cursor.getColumnIndex("is_wakeup"))==1){
+                isWakeup=true;
+            }
+
+        }
+
+        /////////////// Set Location //////////////
+        query = String.format("select * from LOCATION where location_id = %s;",location_id);
+        cursor = dbRead.rawQuery(query,null);
+
+        if(cursor.moveToNext()){
+            locationName = cursor.getString(cursor.getColumnIndex("name"));
+            lon = cursor.getDouble(cursor.getColumnIndex("lon"));
+            lat = cursor.getDouble(cursor.getColumnIndex("lat"));
+        }
+        location = new Location(locationName,lon,lat);
+
+        ///////////// set time of completion /////////////////
+        query = "select * from TIME where time_id="+time_id;
+        cursor = dbRead.rawQuery(query,null);
+        if (cursor.moveToNext()) {
+            time = cursor.getString(cursor.getColumnIndex("date")) + " " + cursor.getString(cursor.getColumnIndex("hour")) + ":" + cursor.getString(cursor.getColumnIndex("min"));
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
+            try {
+                timeOfCompletion = dateFormat.parse(time);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        successorAlarm = getArrivalAlarm(successor_alarm_id);
+        arrivalAlarm = new ArrivalAlarm(id,location,isWakeup,range,contacts);
+        arrivalAlarm.setSuccessorAlarm(successorAlarm);
+        arrivalAlarm.setTimeOfCompletion(timeOfCompletion);
+
+        return arrivalAlarm;
+    }
+
+    public ArrayList<ArrivalAlarm> getArrivalAlarms(){
+        SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
+        Cursor cursor;
+        int alarmID;
+        String query;
+        ArrivalAlarm arrivalAlarm;
+        ArrayList<ArrivalAlarm> arrivalAlarms = new ArrayList<ArrivalAlarm>();
+
+        query = "select reminder_id from REMINDER_TASK;";
+        cursor = dbRead.rawQuery(query,null);
+        while (cursor.moveToNext()){
+            alarmID = cursor.getInt(cursor.getColumnIndex("reminder_id"));
+            try {
+                arrivalAlarm = getArrivalAlarm(alarmID);
+                arrivalAlarms.add(arrivalAlarm);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return arrivalAlarms;
     }
 
 }
