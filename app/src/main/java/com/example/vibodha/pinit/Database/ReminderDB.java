@@ -278,4 +278,9 @@ public class ReminderDB {
         return reminders;
     }
 
+    public boolean editReminder(Reminder reminder){
+
+        return true;
+    }
+
 }

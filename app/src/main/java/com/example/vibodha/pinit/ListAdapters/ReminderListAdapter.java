@@ -66,9 +66,9 @@ public class ReminderListAdapter extends ArrayAdapter<Reminder> {
         note.setText(singleReminder.getNote());
         //id.setText(singleReminder.getTaskId());
         if (singleReminder.isCompleted()) {
-            isCompleted.setImageResource(R.drawable.tik);
+            isCompleted.setImageResource(R.drawable.ic_tik);
         } else {
-            isCompleted.setImageResource(R.drawable.cross);
+            isCompleted.setImageResource(R.drawable.ic_cross);
         }
 
         /*final ArrayList<Activity> activities = singleReminder.getActivities();

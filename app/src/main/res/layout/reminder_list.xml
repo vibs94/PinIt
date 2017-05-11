@@ -19,14 +19,14 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/cross"
+        app:srcCompat="@drawable/ic_cross"
         android:id="@+id/is_completed"
         android:layout_weight="0.1" />
 
     <Button
         android:layout_width="25dp"
         android:layout_height="20dp"
-        android:background="@drawable/three_dot_2"
+        android:background="@drawable/ic_three_dot"
         android:layout_weight="0.1"
         android:id="@+id/menu_button"
         />

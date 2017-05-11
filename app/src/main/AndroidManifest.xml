@@ -59,7 +59,8 @@
             android:name=".View.TestActivity"
             android:label="@string/title_activity_teat"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".View.ViewReminder"></activity>
+        <activity android:name=".View.ViewReminder" />
+        <activity android:name=".View.AddArrivalAlarm"></activity>
     </application>
 
 </manifest>

@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
 //            taskDialog.show(fragmentManager,"TaskDialog");
             place = PlacePicker.getPlace(data,this);
             new AlertDialog.Builder(this)
-                    .setTitle("Alert")
+                    .setTitle("PinIt")
                     .setMessage("What task do you want?")
                     .setPositiveButton("Reminder", new DialogInterface.OnClickListener() {
                         @Override
@@ -120,7 +120,8 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
                     .setNegativeButton("Arrival Alarm", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(MainActivity.this,"N",Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(MainActivity.this,"N",Toast.LENGTH_SHORT).show();
+                            showAddArrivalAlarm();
 
                         }
                     })
@@ -162,11 +163,33 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
 
     @Override
     public void showAddReminder() {
-        Intent addReminder = new Intent(this, AddReminder.class);
-        addReminder.putExtra("placeName",place.getName().toString()+" "+place.getAddress().toString());
-        addReminder.putExtra("placeLat",Double.toString(place.getLatLng().latitude));
-        addReminder.putExtra("placeLon",Double.toString(place.getLatLng().longitude));
-        startActivity(addReminder);
+        if(!place.getName().equals(null)) {
+            Intent addReminder = new Intent(this, AddReminder.class);
+            addReminder.putExtra("placeName", place.getName().toString() + " " + place.getAddress().toString());
+            addReminder.putExtra("placeLat", Double.toString(place.getLatLng().latitude));
+            addReminder.putExtra("placeLon", Double.toString(place.getLatLng().longitude));
+            startActivity(addReminder);
+        }
+        else{
+            Toast.makeText(MainActivity.this,"GPS not Functioning!",Toast.LENGTH_SHORT).show();
+            Intent main = new Intent(this,MainActivity.class);
+            startActivity(main);
+        }
+    }
+
+    public void showAddArrivalAlarm(){
+        if(!place.getName().equals(null)) {
+            Intent addArrivalAlarm = new Intent(this, AddArrivalAlarm.class);
+            addArrivalAlarm.putExtra("placeName", place.getName().toString() + " " + place.getAddress().toString());
+            addArrivalAlarm.putExtra("placeLat", Double.toString(place.getLatLng().latitude));
+            addArrivalAlarm.putExtra("placeLon", Double.toString(place.getLatLng().longitude));
+            startActivity(addArrivalAlarm);
+        }
+        else {
+            Toast.makeText(MainActivity.this,"GPS not Functioning!",Toast.LENGTH_SHORT).show();
+            Intent main = new Intent(this,MainActivity.class);
+            startActivity(main);
+        }
     }
 
     /**

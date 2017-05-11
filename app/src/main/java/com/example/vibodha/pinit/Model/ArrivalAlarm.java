@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ArrivalAlarm extends Task{
 
     private ArrayList<Contact> contacts = new ArrayList<Contact>();
-    private ArrivalAlarm successorAlarm;
+    private ArrivalAlarm successorAlarm=null;
 
     public ArrivalAlarm(int id, Location location, boolean isCompleted, int range, ArrayList<Contact> contacts) {
         super(id, location, isCompleted, range);
