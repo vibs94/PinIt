@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/location_name_alarm"
+            android:layout_weight="1"
+            android:textSize="25dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_cross"
+            android:id="@+id/is_completed_alarm"
+            android:layout_weight="0.1" />
+
+        <Button
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_three_dot"
+            android:layout_weight="0.1"
+            android:id="@+id/menu_button_alarm"
+            />
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+    <!--<ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reminder_activity_list"
+android:visibility="gone"
+        />-->
+</LinearLayout>

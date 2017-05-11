@@ -163,14 +163,14 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
 
     @Override
     public void showAddReminder() {
-        if(!place.getName().equals(null)) {
+        try {
             Intent addReminder = new Intent(this, AddReminder.class);
             addReminder.putExtra("placeName", place.getName().toString() + " " + place.getAddress().toString());
             addReminder.putExtra("placeLat", Double.toString(place.getLatLng().latitude));
             addReminder.putExtra("placeLon", Double.toString(place.getLatLng().longitude));
             startActivity(addReminder);
         }
-        else{
+        catch (NullPointerException e){
             Toast.makeText(MainActivity.this,"GPS not Functioning!",Toast.LENGTH_SHORT).show();
             Intent main = new Intent(this,MainActivity.class);
             startActivity(main);
@@ -178,14 +178,14 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
     }
 
     public void showAddArrivalAlarm(){
-        if(!place.getName().equals(null)) {
+        try {
             Intent addArrivalAlarm = new Intent(this, AddArrivalAlarm.class);
             addArrivalAlarm.putExtra("placeName", place.getName().toString() + " " + place.getAddress().toString());
             addArrivalAlarm.putExtra("placeLat", Double.toString(place.getLatLng().latitude));
             addArrivalAlarm.putExtra("placeLon", Double.toString(place.getLatLng().longitude));
             startActivity(addArrivalAlarm);
         }
-        else {
+        catch (NullPointerException e){
             Toast.makeText(MainActivity.this,"GPS not Functioning!",Toast.LENGTH_SHORT).show();
             Intent main = new Intent(this,MainActivity.class);
             startActivity(main);

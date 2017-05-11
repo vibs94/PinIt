@@ -146,7 +146,7 @@ public class ArrivalAlarmDB {
             contacts.add(contact);
         }
 
-        //////////////////////// Set Reminder ////////////
+        //////////////////////// Set Alarm ////////////
         query = String.format("select * from ARRIVAL_ALARM_TASK where arrival_alarm_id = %s",id);
         cursor = dbRead.rawQuery(query,null);
         if(cursor.moveToNext()){
@@ -184,7 +184,9 @@ public class ArrivalAlarmDB {
             }
         }
 
-        successorAlarm = getArrivalAlarm(successor_alarm_id);
+        if(successor_alarm_id>0) {
+            successorAlarm = getArrivalAlarm(successor_alarm_id);
+        }
         arrivalAlarm = new ArrivalAlarm(id,location,isWakeup,range,contacts);
         arrivalAlarm.setSuccessorAlarm(successorAlarm);
         arrivalAlarm.setTimeOfCompletion(timeOfCompletion);
@@ -192,7 +194,7 @@ public class ArrivalAlarmDB {
         return arrivalAlarm;
     }
 
-    public ArrayList<ArrivalAlarm> getArrivalAlarms(){
+    public ArrayList<ArrivalAlarm> getArrivalAlarms() throws ParseException{
         SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
         Cursor cursor;
         int alarmID;
