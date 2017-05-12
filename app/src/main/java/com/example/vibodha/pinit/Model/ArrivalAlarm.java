@@ -27,4 +27,11 @@ public class ArrivalAlarm extends Task{
     public ArrivalAlarm getSuccessorAlarm() {
         return successorAlarm;
     }
+
+    public double getDistanceToSuccAlarm(){
+        double dis;
+        double val1 = Math.pow(getLocation().getLongitude()-successorAlarm.getLocation().getLongitude(),2) + Math.pow(getLocation().getLatitude()-successorAlarm.getLocation().getLatitude(),2);
+        dis = Math.pow(val1,0.5);
+        return dis;
+    }
 }
