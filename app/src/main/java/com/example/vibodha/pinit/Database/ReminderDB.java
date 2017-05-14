@@ -400,7 +400,6 @@ public class ReminderDB {
             return false;
         }
 
-        dbRead.close();
         dbWrite.close();
         return true;
 
