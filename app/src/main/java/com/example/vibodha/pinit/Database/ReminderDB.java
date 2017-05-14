@@ -209,7 +209,7 @@ public class ReminderDB {
             activities.add(activity);
         }
 
-        Log.w("#activities",Integer.toString(activities.size()));
+        //Log.w("#activities",Integer.toString(activities.size()));
 
         //set reminder
         query = String.format("select * from REMINDER_TASK where reminder_id = %s;",id);

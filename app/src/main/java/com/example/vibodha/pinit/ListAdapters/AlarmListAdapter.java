@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
 import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
+import com.example.vibodha.pinit.View.ViewArrivalAlarm;
 import com.example.vibodha.pinit.View.ViewReminder;
 
 import static com.example.vibodha.pinit.R.layout.alarm_list;
@@ -42,7 +43,7 @@ public class AlarmListAdapter extends ArrayAdapter<ArrivalAlarm> {
         final View customView = layoutInflater.inflate(alarm_list, parent, false);
 
         final ArrivalAlarm singleAlarm = getItem(position);
-
+        final Context context = getContext();
         TextView alarmLocationName = (TextView) customView.findViewById(R.id.location_name_alarm);
         ImageView isCompleted = (ImageView) customView.findViewById(R.id.is_completed_alarm);
         Button menuButton = (Button) customView.findViewById(R.id.menu_button_alarm);
@@ -68,6 +69,9 @@ public class AlarmListAdapter extends ArrayAdapter<ArrivalAlarm> {
                         switch (id){
                             case R.id.view_id:
                                 // implementation for view arrival alarm
+                                Intent inte=new Intent(context, ViewArrivalAlarm.class);
+                                inte.putExtra("id",singleAlarm.getTaskId());
+                                context.startActivity(inte);
                                 break;
                             case R.id.edit_id:
                                 // implementation for edit arrival alarm

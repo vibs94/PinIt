@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
 import com.example.vibodha.pinit.Model.Contact;
@@ -201,7 +202,9 @@ public class ArrivalAlarmDB {
         if(successor_alarm_id>0) {
             successorAlarm = getArrivalAlarm(successor_alarm_id);
         }
+
         arrivalAlarm = new ArrivalAlarm(id,location,isWakeup,range,contacts);
+        Log.w("#contacts",""+arrivalAlarm.getContacts().size());
         arrivalAlarm.setSuccessorAlarm(successorAlarm);
         arrivalAlarm.setTimeOfCompletion(timeOfCompletion);
 

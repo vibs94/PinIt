@@ -51,11 +51,13 @@ public class ViewReminder extends AppCompatActivity {
             //Toast.makeText(this,""+reminder.getActivities().size(),Toast.LENGTH_SHORT).show();
             ArrayList<Activity> activityArrayList = reminder.getActivities();
             // create reminder list
-            Toast.makeText(this,""+activityArrayList.size(),Toast.LENGTH_SHORT).show();
-            Activity[] activities = activityArrayList.toArray(new Activity[activityArrayList.size()]);
-            ListAdapter activityListAdapter = new ActivityListAdapter(this,activities);
-            ListView activityListView = (ListView) findViewById(R.id.reminder_activities);
-            activityListView.setAdapter(activityListAdapter);
+            //Toast.makeText(this,""+activityArrayList.size(),Toast.LENGTH_SHORT).show();
+            if(activityArrayList.size()>0) {
+                Activity[] activities = activityArrayList.toArray(new Activity[activityArrayList.size()]);
+                ListAdapter activityListAdapter = new ActivityListAdapter(this, activities);
+                ListView activityListView = (ListView) findViewById(R.id.reminder_activities);
+                activityListView.setAdapter(activityListAdapter);
+            }
 //            registerForContextMenu(activityListView);
 
         } catch (ParseException e) {

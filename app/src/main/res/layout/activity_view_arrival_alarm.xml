@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/reminder_location"
+            android:id="@+id/alarm_location"
             android:hint="Location"
             android:textSize="25dp"
             android:layout_weight="1"/>
@@ -27,22 +27,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/cross"
-            android:id="@+id/complete_state"
+            android:id="@+id/complete_alarm"
             android:layout_weight="0.1" />
 
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/note"
-        android:textSize="25dp"
-        android:hint="note"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/reminder_activities">
+        android:id="@+id/alarm_contacts">
 
     </ListView>
 
 </LinearLayout>
+
