@@ -33,6 +33,10 @@ public class Reminder extends Task {
         listOfwakeupTimes.add(new Date(System.currentTimeMillis()));
     }
 
+    public Date getLastWakeup(){
+        return listOfwakeupTimes.get((listOfwakeupTimes.size()-1));
+    }
+
     public int getWakeUpCount(){
         return listOfwakeupTimes.size();
     }

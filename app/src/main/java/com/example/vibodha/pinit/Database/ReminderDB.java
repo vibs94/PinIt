@@ -142,6 +142,20 @@ public class ReminderDB {
 
     }
 
+    public int getCurrentTimeID(){
+        int maxID=0;
+        String query;
+        SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
+
+        query = "Select Max(time_id) as max_id from TIME;";
+        Cursor cursor=dbRead.rawQuery(query,null);
+        if(cursor.moveToNext()){
+            maxID=cursor.getInt(cursor.getColumnIndex("max_id"));
+        }
+
+        return maxID;
+    }
+
 
     //get reminder by id
     public Reminder getReminder(int id) throws ParseException {
@@ -278,9 +292,118 @@ public class ReminderDB {
         return reminders;
     }
 
+    public boolean markActivity(Activity activity){
+        SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
+        ContentValues timeContent = new ContentValues();
+        ContentValues activityContent = new ContentValues();
+        Date date = activity.getTimeofCompletion();
+        long result;
+        int timeID;
+        SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat hour = new SimpleDateFormat("HH");
+        SimpleDateFormat min = new SimpleDateFormat("mm");
+        timeContent.put("datee",day.format(date));
+        timeContent.put("hour",hour.format(date));
+        timeContent.put("min",min.format(date));
+        result = dbWrite.insert("TIME",null,timeContent);
+        if(result<0){
+            return false;
+        }
+        timeID = getCurrentTimeID();
+        activityContent.put("time_id_of_completion",timeID);
+        result = dbWrite.update("ACTIVITY",activityContent,"activity_id=?",new  String[] {String.valueOf(activity.getId())});
+        if(result<0){
+            return false;
+        }
+        return true;
+    }
+    public boolean markWakeupReminder(Reminder reminder){
+        SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
+        ContentValues timeContent = new ContentValues();
+        ContentValues wakeupsContent = new ContentValues();
+        Date date = reminder.getLastWakeup();
+        long result;
+        int timeID;
+        SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat hour = new SimpleDateFormat("HH");
+        SimpleDateFormat min = new SimpleDateFormat("mm");
+        timeContent.put("datee",day.format(date));
+        timeContent.put("hour",hour.format(date));
+        timeContent.put("min",min.format(date));
+        result = dbWrite.insert("TIME",null,timeContent);
+        if(result<0){
+            return false;
+        }
+        timeID = getCurrentTimeID();
+        wakeupsContent.put("reminder_id",reminder.getTaskId());
+        wakeupsContent.put("time_id_of_wakeup",timeID);
+        result = dbWrite.insert("WAKEUPS",null,wakeupsContent);
+        if(result<0){
+            return false;
+        }
+        return true;
+    }
+
     public boolean editReminder(Reminder reminder){
 
+        int locationID=0;
+        int priorityID=0;
+        int reminderID=0;
+        ArrayList<Activity> activities;
+        long result;
+        String query;
+
+        SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
+        SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
+
+        ContentValues reminderTableValues = new ContentValues();
+        ContentValues activityTableValues;
+        ContentValues locationTableValues = new ContentValues();
+        ContentValues priorityTableValues = new ContentValues();
+        //insert to location table
+        locationTableValues.put("name",reminder.getLocation().getLocationName());
+        locationTableValues.put("lon",reminder.getLocation().getLongitude());
+        locationTableValues.put("lat",reminder.getLocation().getLatitude());
+        result = dbWrite.insert("LOCATION",null,locationTableValues);
+        if(result>0){
+            query = "Select Max(location_id) as max_id from LOCATION;";
+            Cursor cursor=dbRead.rawQuery(query,null);
+            if(cursor.moveToNext()){
+                locationID=cursor.getInt(cursor.getColumnIndex("max_id"));
+            }
+        }
+        else{
+            return false;
+        }
+        //insert to priority table
+        priorityTableValues.put("range",reminder.getRange());
+        result = dbWrite.insert("PRIORITY",null,priorityTableValues);
+        if(result>0){
+            query = "Select Max(priority_id) as max_id from PRIORITY;";
+            Cursor cursor=dbRead.rawQuery(query,null);
+            if(cursor.moveToNext()){
+                priorityID=cursor.getInt(cursor.getColumnIndex("max_id"));
+            }
+        }
+        else{
+            return false;
+        }
+        //insert reminder
+        reminderTableValues.put("reminder_id",reminder.getTaskId());
+        reminderTableValues.put("location_id",locationID);
+        reminderTableValues.put("time_id_of_completion","-1");
+        reminderTableValues.put("priority_id",priorityID);
+        reminderTableValues.put("is_completed","0");
+        reminderTableValues.put("note",reminder.getNote());
+        result = dbWrite.insert("REMINDER_TASK",null,reminderTableValues);
+        if(result<0){
+            return false;
+        }
+
+        dbRead.close();
+        dbWrite.close();
         return true;
+
     }
 
 }

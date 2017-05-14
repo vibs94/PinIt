@@ -17,6 +17,10 @@ public class Activity {
         this.description = description;
     }
 
+    public void markActivity() {
+        this.timeofCompletion = new Date(System.currentTimeMillis());
+    }
+
     public void setTimeofCompletion(Date timeofCompletion) {
         this.timeofCompletion = timeofCompletion;
     }
