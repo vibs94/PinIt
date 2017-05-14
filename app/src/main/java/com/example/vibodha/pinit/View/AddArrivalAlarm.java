@@ -1,13 +1,18 @@
 package com.example.vibodha.pinit.View;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vibodha.pinit.Database.ArrivalAlarmDB;
@@ -20,6 +25,12 @@ import com.example.vibodha.pinit.R;
 import java.util.ArrayList;
 
 public class AddArrivalAlarm extends AppCompatActivity {
+    private static final int RESULT_PICK_CONTACT = 1;
+    final Contact[] contact = new Contact[1];
+    final ArrayList<Contact> contacts = new ArrayList<Contact>();
+    TextView newContactname;
+    TextView newContactno;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +44,10 @@ public class AddArrivalAlarm extends AppCompatActivity {
         txtLat.setText(getIntent().getStringExtra("placeLat"));
         txtLon.setText(getIntent().getStringExtra("placeLon"));
         ////////////////// add new contact //////////////////
-        final Contact[] contact = new Contact[1];
-        final ArrayList<Contact> contacts = new ArrayList<Contact>();
+
         Button btnAddContact = (Button) findViewById(R.id.btn_add_contact);
-        final EditText newContactname = (EditText) findViewById(R.id.txt_contactname);
-        final EditText newContactno = (EditText) findViewById(R.id.txt_contactno);
+        newContactname = (TextView) findViewById(R.id.txt_contactname);
+        newContactno = (TextView) findViewById(R.id.txt_contactno);
 
         btnAddContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +72,7 @@ public class AddArrivalAlarm extends AppCompatActivity {
                 }
             }
         });
+
 
         /////////////////// add alarm /////////////////
         Button btnAddAlarm = (Button) findViewById(R.id.btn_add_alarm);
@@ -117,6 +128,55 @@ public class AddArrivalAlarm extends AppCompatActivity {
         }
         else {
             return true;
+        }
+    }
+    public void pickContact(View v)
+    {
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        startActivityForResult(contactPickerIntent, RESULT_PICK_CONTACT);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // check whether the result is ok
+        if (resultCode == RESULT_OK) {
+            // Check for the request code, we might be usign multiple startActivityForReslut
+            switch (requestCode) {
+                case RESULT_PICK_CONTACT:
+                    Toast.makeText(AddArrivalAlarm.this,"contact picked",Toast.LENGTH_SHORT).show();
+                    contactPicked(data);
+                    break;
+            }
+        } else {
+            Log.e("MainActivity", "Failed to pick contact");
+        }
+    }
+    /**
+     * Query the Uri and read contact details. Handle the picked contact data.
+     * @param data
+     */
+    private void contactPicked(Intent data) {
+        Cursor cursor = null;
+        try {
+            String phoneNo = null ;
+            String name = null;
+            // getData() method will have the Content Uri of the selected contact
+            Uri uri = data.getData();
+            //Query the content uri
+            cursor = getContentResolver().query(uri, null, null, null, null);
+            cursor.moveToFirst();
+            // column index of the phone number
+            int  phoneIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            // column index of the contact name
+            int  nameIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+            phoneNo = cursor.getString(phoneIndex);
+            name = cursor.getString(nameIndex);
+            // Set the value to the list
+            newContactname.setText(name);
+            newContactno.setText(phoneNo);
+        } catch (Exception e) {
+            Toast.makeText(AddArrivalAlarm.this,"ex",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
     }
 }
