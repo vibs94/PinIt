@@ -53,4 +53,7 @@ public class Reminder extends Task {
         return activities;
     }
 
+    public void setNote(String note) {
+        this.note = note;
+    }
 }

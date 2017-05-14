@@ -348,54 +348,56 @@ public class ReminderDB {
 
         int locationID=0;
         int priorityID=0;
-        int reminderID=0;
-        ArrayList<Activity> activities;
         long result;
         String query;
+        Cursor cursor;
+        int isCompleted;
 
         SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
         SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
 
         ContentValues reminderTableValues = new ContentValues();
-        ContentValues activityTableValues;
         ContentValues locationTableValues = new ContentValues();
         ContentValues priorityTableValues = new ContentValues();
         //insert to location table
         locationTableValues.put("name",reminder.getLocation().getLocationName());
         locationTableValues.put("lon",reminder.getLocation().getLongitude());
         locationTableValues.put("lat",reminder.getLocation().getLatitude());
-        result = dbWrite.insert("LOCATION",null,locationTableValues);
-        if(result>0){
-            query = "Select Max(location_id) as max_id from LOCATION;";
-            Cursor cursor=dbRead.rawQuery(query,null);
-            if(cursor.moveToNext()){
-                locationID=cursor.getInt(cursor.getColumnIndex("max_id"));
-            }
+        query = "select location_id from REMINDER_TASK where reminder_id="+reminder.getTaskId();
+        cursor =  dbRead.rawQuery(query,null);
+        if(cursor.moveToNext()){
+            locationID =  cursor.getInt(cursor.getColumnIndex("location_id"));
         }
-        else{
+        result = dbWrite.update("LOCATION",locationTableValues,"location_id=?",new String[] {String.valueOf(locationID)});
+        if(result<0){
+
             return false;
         }
         //insert to priority table
         priorityTableValues.put("range",reminder.getRange());
-        result = dbWrite.insert("PRIORITY",null,priorityTableValues);
-        if(result>0){
-            query = "Select Max(priority_id) as max_id from PRIORITY;";
-            Cursor cursor=dbRead.rawQuery(query,null);
-            if(cursor.moveToNext()){
-                priorityID=cursor.getInt(cursor.getColumnIndex("max_id"));
-            }
+        query = "select priority_id from REMINDER_TASK where reminder_id="+reminder.getTaskId();
+        cursor =  dbRead.rawQuery(query,null);
+        if(cursor.moveToNext()){
+            priorityID =  cursor.getInt(cursor.getColumnIndex("priority_id"));
         }
-        else{
+        result = dbWrite.update("PRIORITY",priorityTableValues,"priority_id=?",new String[] {String.valueOf(priorityID)});
+        if(result<0){
             return false;
         }
         //insert reminder
+        if(reminder.isCompleted()){
+            isCompleted = 1;
+        }
+        else {
+            isCompleted = 0;
+        }
         reminderTableValues.put("reminder_id",reminder.getTaskId());
         reminderTableValues.put("location_id",locationID);
         reminderTableValues.put("time_id_of_completion","-1");
         reminderTableValues.put("priority_id",priorityID);
-        reminderTableValues.put("is_completed","0");
+        reminderTableValues.put("is_completed",isCompleted);
         reminderTableValues.put("note",reminder.getNote());
-        result = dbWrite.insert("REMINDER_TASK",null,reminderTableValues);
+        result = dbWrite.update("REMINDER_TASK",reminderTableValues,"reminder_id=?",new String[] {String.valueOf(reminder.getTaskId())});
         if(result<0){
             return false;
         }

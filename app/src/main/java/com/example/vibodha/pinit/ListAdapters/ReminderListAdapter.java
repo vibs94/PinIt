@@ -24,6 +24,7 @@ import com.example.vibodha.pinit.Model.Activity;
 import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
 import com.example.vibodha.pinit.View.AddReminder;
+import com.example.vibodha.pinit.View.EditReminder;
 import com.example.vibodha.pinit.View.ViewReminder;
 
 import java.util.ArrayList;
@@ -138,6 +139,9 @@ public class ReminderListAdapter extends ArrayAdapter<Reminder> {
                                 break;
                             case R.id.edit_id:
                                 // implementation for edit reminder
+                                Intent in = new Intent(context, EditReminder.class);
+                                in.putExtra("id",singleReminder.getTaskId());
+                                context.startActivity(in);
                                 break;
                         }
                         return true;

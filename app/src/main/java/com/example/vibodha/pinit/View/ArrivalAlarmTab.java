@@ -32,7 +32,7 @@ public class ArrivalAlarmTab extends android.support.v4.app.Fragment {
         View view = inflater.inflate(R.layout.arrival_alarm_tab,container,false);
         ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(this.getContext());
         try {
-            // create reminder list
+            // create alarm list
             ArrayList<ArrivalAlarm> alarmArrayList = arrivalAlarmDB.getArrivalAlarms();
             ArrivalAlarm[] alarms = alarmArrayList.toArray(new ArrivalAlarm[alarmArrayList.size()]);
             ListAdapter alarmListAdapter = new AlarmListAdapter(this.getContext(),alarms);

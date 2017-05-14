@@ -112,6 +112,20 @@ public class ArrivalAlarmDB {
 
     }
 
+    public int getCurrentTimeID(){
+        int maxID=0;
+        String query;
+        SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
+
+        query = "Select Max(time_id) as max_id from TIME;";
+        Cursor cursor=dbRead.rawQuery(query,null);
+        if(cursor.moveToNext()){
+            maxID=cursor.getInt(cursor.getColumnIndex("max_id"));
+        }
+
+        return maxID;
+    }
+
     public ArrivalAlarm getArrivalAlarm(int id) throws ParseException{
         ArrivalAlarm arrivalAlarm =  null;
         Location location;
@@ -215,5 +229,38 @@ public class ArrivalAlarmDB {
         }
         return arrivalAlarms;
     }
+
+    public boolean markWakeupAlarm(ArrivalAlarm arrivalAlarm){
+        SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
+        ContentValues timeContent = new ContentValues();
+        ContentValues alarmContent = new ContentValues();
+        Date date = arrivalAlarm.getTimeOfCompletion();
+        long result;
+        int timeID;
+        SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat hour = new SimpleDateFormat("HH");
+        SimpleDateFormat min = new SimpleDateFormat("mm");
+        timeContent.put("datee",day.format(date));
+        timeContent.put("hour",hour.format(date));
+        timeContent.put("min",min.format(date));
+        result = dbWrite.insert("TIME",null,timeContent);
+        if(result<0){
+            return false;
+        }
+        timeID = getCurrentTimeID();
+        alarmContent.put("time_id_of_completion",timeID);
+        alarmContent.put("is_wakeup",1);
+        result = dbWrite.update("ARRIVAL_ALARM_TASK",alarmContent,"arrival_alarm_id=?",new String[] {String.valueOf(arrivalAlarm.getTaskId())});
+        if(result<0){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean editAlarm(ArrivalAlarm arrivalAlarm){
+        return true;
+    }
+
+
 
 }

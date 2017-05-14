@@ -47,4 +47,12 @@ public class Task {
     public int getRange() {
         return range;
     }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
 }
