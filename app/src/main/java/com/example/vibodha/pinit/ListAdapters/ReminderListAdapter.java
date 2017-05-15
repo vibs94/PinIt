@@ -71,7 +71,7 @@ public class ReminderListAdapter extends ArrayAdapter<Reminder> {
         } else {
             isCompleted.setImageResource(R.drawable.ic_cross);
         }
-        Toast.makeText(context,""+position+" "+singleReminder.getActivities().size(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,""+position+" "+singleReminder.getActivities().size(),Toast.LENGTH_SHORT).show();
         /*final ArrayList<Activity> activities = singleReminder.getActivities();
 
         checkBoxLayout = (LinearLayout) customView.findViewById(R.id.list_layout);
@@ -133,7 +133,7 @@ public class ReminderListAdapter extends ArrayAdapter<Reminder> {
                         int id=item.getItemId();
                         switch (id){
                             case R.id.view_id:
-                                Toast.makeText(context,""+singleReminder.getActivities().size(),Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(context,""+singleReminder.getActivities().size(),Toast.LENGTH_SHORT).show();
                                 Intent i=new Intent(context, ViewReminder.class);
                                 i.putExtra("id",singleReminder.getTaskId());
                                 context.startActivity(i);

@@ -108,14 +108,14 @@ public class ShowReminder extends AppCompatActivity implements android.widget.Co
         if(inCompleteActivities.size()==0){
             reminder.completeReminder();
             if(reminderDB.markReminder(reminder)){
-                Toast.makeText(ShowReminder.this,"Reminder marked"+reminder.getTimeOfCompletion(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ShowReminder.this,"Reminder marked"+reminder.getTimeOfCompletion(),Toast.LENGTH_SHORT).show();
             }
             isCompleted.setImageResource(R.drawable.ic_tik);
         }
         completeActivities.add(activity);
         activity.markActivity();
         if(reminderDB.markActivity(activity)){
-            Toast.makeText(ShowReminder.this,"activity marked"+activity.getTimeofCompletion(),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ShowReminder.this,"activity marked"+activity.getTimeofCompletion(),Toast.LENGTH_SHORT).show();
         }
         //complete activities
         if(completeActivities.size()>0) {

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.vibodha.pinit.Model.Activity;
 import com.example.vibodha.pinit.Model.Location;
@@ -25,12 +26,15 @@ public class ReminderDB {
 
     private static ReminderDB reminderDB = null;
     private DatabaseHelper databaseHelper;
+    Context context;
 
     private ReminderDB(Context context) {
+        this.context = context;
         databaseHelper = DatabaseHelper.getInstance(context);
     }
     //Singleton
     public static ReminderDB getInstance(Context context){
+
         if(reminderDB==null){
             reminderDB=new ReminderDB(context);
         }
@@ -181,6 +185,7 @@ public class ReminderDB {
         double lon=0.0;
         double lat=0.0;
         Cursor cursor;
+        Cursor cursor1;
         SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
 
         //set activities
@@ -192,12 +197,13 @@ public class ReminderDB {
             timeIDOfCompletion = cursor.getInt(cursor.getColumnIndex("time_id_of_completion"));
             activity = new Activity(activityID,activityDesc);
             if(timeIDOfCompletion>-1){
+                //Toast.makeText(context,""+id+" "+timeIDOfCompletion,Toast.LENGTH_SHORT).show();
                 query = "select * from TIME where time_id="+timeIDOfCompletion;
-                cursor = dbRead.rawQuery(query,null);
-                if (cursor.moveToNext()) {
-                    Log.w("date",cursor.getString(cursor.getColumnIndex("datee")) );
+                cursor1 = dbRead.rawQuery(query,null);
+                if (cursor1.moveToNext()) {
+                    //Log.w("date",cursor.getString(cursor.getColumnIndex("datee")) );
                     //Log.w("h",)
-                    time = cursor.getString(cursor.getColumnIndex("datee")) + " " + cursor.getInt(cursor.getColumnIndex("hour")) + ":" + cursor.getInt(cursor.getColumnIndex("min"));
+                    time = cursor1.getString(cursor1.getColumnIndex("datee")) + " " + cursor1.getInt(cursor1.getColumnIndex("hour")) + ":" + cursor1.getInt(cursor1.getColumnIndex("min"));
                 }
                 dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
                 try {
@@ -251,9 +257,9 @@ public class ReminderDB {
             timeIDOfCompletion = cursor.getInt(cursor.getColumnIndex("time_id_of_wakeup"));
             Log.w("timeID",String.valueOf(timeIDOfCompletion));
             query = "select * from TIME where time_id="+timeIDOfCompletion;
-            cursor = dbRead.rawQuery(query,null);
-            if (cursor.moveToNext()) {
-                time = cursor.getString(cursor.getColumnIndex("datee")) + " " + cursor.getString(cursor.getColumnIndex("hour")) + ":" + cursor.getString(cursor.getColumnIndex("min"));
+            cursor1 = dbRead.rawQuery(query,null);
+            if (cursor1.moveToNext()) {
+                time = cursor1.getString(cursor1.getColumnIndex("datee")) + " " + cursor1.getString(cursor1.getColumnIndex("hour")) + ":" + cursor1.getString(cursor1.getColumnIndex("min"));
             }
             dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
             try {
@@ -313,10 +319,11 @@ public class ReminderDB {
         }
         timeID = getCurrentTimeID();
         activityContent.put("time_id_of_completion",timeID);
-        result = dbWrite.update("ACTIVITY",activityContent,"activity_id=?",new  String[] {String.valueOf(activity.getId())});
+        result = dbWrite.update("ACTIVITY",activityContent,"activity_id="+activity.getId(),null);
         if(result<0){
             return false;
         }
+        //Toast.makeText(context,"activity marked"+activity.getTimeofCompletion(),Toast.LENGTH_SHORT).show();
         return true;
     }
 
@@ -344,6 +351,7 @@ public class ReminderDB {
         if(result<0){
             return false;
         }
+        //Toast.makeText(context,"Reminder marked"+re.getTimeOfCompletion(),Toast.LENGTH_SHORT).show();
         return true;
     }
 

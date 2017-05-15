@@ -93,6 +93,19 @@ public class TaskController {
         return  bestOrder;
     }
 
+    //................Cancel Location Alarm.
+    private void cancelLocationAlarm(int task_id) {
 
+        Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, task_id, intent, 0);
+
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        locationManager.removeProximityAlert(pendingIntent);
+    }
 
 }
