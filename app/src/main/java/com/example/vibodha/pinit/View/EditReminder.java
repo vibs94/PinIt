@@ -43,7 +43,7 @@ public class EditReminder extends AppCompatActivity {
         final RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         Button changeLocation = (Button) findViewById(R.id.btn_change_location);
         Button editReminder = (Button) findViewById(R.id.btn_edit_reminder);
-        Toast.makeText(EditReminder.this,getIntent().getStringExtra("id"),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(EditReminder.this,getIntent().getStringExtra("id"),Toast.LENGTH_SHORT).show();
         int reminderID = getIntent().getIntExtra("id",-1);
         final ReminderDB reminderDB = ReminderDB.getInstance(this);
         Reminder reminder = null;
@@ -55,7 +55,7 @@ public class EditReminder extends AppCompatActivity {
             longitude.setText(String.valueOf(rem.getLocation().getLongitude()));
             latitude.setText(String.valueOf(rem.getLocation().getLatitude()));
             note.setText(rem.getNote());
-            float priorityLevel = (float) rem.getRange()/20;
+            float priorityLevel = (float) rem.getRange();
             ratingBar.setRating(priorityLevel);
             reminder = rem;
         } catch (ParseException e) {
@@ -94,7 +94,7 @@ public class EditReminder extends AppCompatActivity {
 
                     //set range
                     float ratingBarValue = ratingBar.getRating();
-                    int range = Math.round(ratingBarValue * 20);
+                    int range = Math.round(ratingBarValue);
                     if (range > 0) {
                         // set Reminder
                         int reminderID = reminderDB.getNextReminderID();
@@ -104,7 +104,7 @@ public class EditReminder extends AppCompatActivity {
                         finalReminder.setRange(range);
                         finalReminder.setLocation(location);
                         if (reminderDB.editReminder(finalReminder)) {
-                            Toast.makeText(EditReminder.this, "Reminder added successfully ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditReminder.this, "Reminder edited successfully ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(EditReminder.this, MainActivity.class);
                             startActivity(intent);
                         } else {
@@ -128,7 +128,7 @@ public class EditReminder extends AppCompatActivity {
     protected void onActivityResult(int reqestCode, int resultCode, Intent data){
         if(reqestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK){
             place = PlacePicker.getPlace(data,this);
-            name.setText(place.getName().toString() + " " + place.getAddress().toString());
+            name.setText(place.getName().toString() + "," + place.getAddress().toString());
             longitude.setText(Double.toString(place.getLatLng().longitude));
             latitude.setText(Double.toString(place.getLatLng().latitude));
         }

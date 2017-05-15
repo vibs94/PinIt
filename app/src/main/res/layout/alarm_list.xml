@@ -31,8 +31,6 @@
             android:id="@+id/menu_button_alarm"
             />
 
-
-
     </LinearLayout>
 
 

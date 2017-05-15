@@ -181,7 +181,6 @@ public class ReminderDB {
         double lon=0.0;
         double lat=0.0;
         Cursor cursor;
-        Cursor cursor1;
         SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
 
         //set activities
@@ -192,11 +191,13 @@ public class ReminderDB {
             activityDesc = cursor.getString(cursor.getColumnIndex("description"));
             timeIDOfCompletion = cursor.getInt(cursor.getColumnIndex("time_id_of_completion"));
             activity = new Activity(activityID,activityDesc);
-            if(timeIDOfCompletion>0){
+            if(timeIDOfCompletion>-1){
                 query = "select * from TIME where time_id="+timeIDOfCompletion;
-                cursor1 = dbRead.rawQuery(query,null);
-                if (cursor1.moveToNext()) {
-                    time = cursor1.getString(cursor1.getColumnIndex("date")) + " " + cursor1.getString(cursor1.getColumnIndex("hour")) + ":" + cursor1.getString(cursor.getColumnIndex("min"));
+                cursor = dbRead.rawQuery(query,null);
+                if (cursor.moveToNext()) {
+                    Log.w("date",cursor.getString(cursor.getColumnIndex("datee")) );
+                    //Log.w("h",)
+                    time = cursor.getString(cursor.getColumnIndex("datee")) + " " + cursor.getInt(cursor.getColumnIndex("hour")) + ":" + cursor.getInt(cursor.getColumnIndex("min"));
                 }
                 dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
                 try {
@@ -247,11 +248,12 @@ public class ReminderDB {
         query = String.format("select * from WAKEUPS where reminder_id = %s;",id);
         cursor = dbRead.rawQuery(query,null);
         while(cursor.moveToNext()){
-            timeIDOfCompletion = cursor.getInt(cursor.getColumnIndex("time_id_of_completion"));
+            timeIDOfCompletion = cursor.getInt(cursor.getColumnIndex("time_id_of_wakeup"));
+            Log.w("timeID",String.valueOf(timeIDOfCompletion));
             query = "select * from TIME where time_id="+timeIDOfCompletion;
-            cursor1 = dbRead.rawQuery(query,null);
-            if (cursor1.moveToNext()) {
-                time = cursor1.getString(cursor1.getColumnIndex("date")) + " " + cursor1.getString(cursor1.getColumnIndex("hour")) + ":" + cursor1.getString(cursor1.getColumnIndex("min"));
+            cursor = dbRead.rawQuery(query,null);
+            if (cursor.moveToNext()) {
+                time = cursor.getString(cursor.getColumnIndex("datee")) + " " + cursor.getString(cursor.getColumnIndex("hour")) + ":" + cursor.getString(cursor.getColumnIndex("min"));
             }
             dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
             try {
@@ -264,7 +266,7 @@ public class ReminderDB {
         dbRead.close();
 
         reminder = new Reminder(id,location,isCompleted,range,activities,note);
-        reminder.setListOfwakeupTimes(listOfWakeupTimes);
+        //reminder.setListOfwakeupTimes(listOfWakeupTimes);
         return  reminder;
     }
 
@@ -317,6 +319,34 @@ public class ReminderDB {
         }
         return true;
     }
+
+    public boolean markReminder(Reminder re){
+        SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
+        ContentValues timeContent = new ContentValues();
+        ContentValues reminderContent = new ContentValues();
+        Date date = re.getTimeOfCompletion();
+        long result;
+        int timeID;
+        SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat hour = new SimpleDateFormat("HH");
+        SimpleDateFormat min = new SimpleDateFormat("mm");
+        timeContent.put("datee",day.format(date));
+        timeContent.put("hour",hour.format(date));
+        timeContent.put("min",min.format(date));
+        result = dbWrite.insert("TIME",null,timeContent);
+        if(result<0){
+            return false;
+        }
+        timeID = getCurrentTimeID();
+        reminderContent.put("time_id_of_completion",timeID);
+        reminderContent.put("is_completed",1);
+        result = dbWrite.update("REMINDER_TASK",reminderContent,"reminder_id=?",new  String[] {String.valueOf(re.getTaskId())});
+        if(result<0){
+            return false;
+        }
+        return true;
+    }
+
     public boolean markWakeupReminder(Reminder reminder){
         SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
         ContentValues timeContent = new ContentValues();

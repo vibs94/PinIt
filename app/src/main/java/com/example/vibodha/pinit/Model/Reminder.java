@@ -34,7 +34,12 @@ public class Reminder extends Task {
     }
 
     public Date getLastWakeup(){
-        return listOfwakeupTimes.get((listOfwakeupTimes.size()-1));
+        if(listOfwakeupTimes.size()>0) {
+            return listOfwakeupTimes.get((listOfwakeupTimes.size() - 1));
+        }
+        else{
+            return null;
+        }
     }
 
     public int getWakeUpCount(){
@@ -55,5 +60,10 @@ public class Reminder extends Task {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public void completeReminder(){
+        setTimeOfCompletion(new Date(System.currentTimeMillis()));
+        this.setCompleted(true);
     }
 }

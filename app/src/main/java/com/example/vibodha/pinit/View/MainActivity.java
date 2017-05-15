@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
     public void showAddArrivalAlarm(){
         try {
             Intent addArrivalAlarm = new Intent(this, AddArrivalAlarm.class);
-            addArrivalAlarm.putExtra("placeName", place.getName().toString() + " " + place.getAddress().toString());
+            addArrivalAlarm.putExtra("placeName", place.getName().toString() + "," + place.getAddress().toString());
             addArrivalAlarm.putExtra("placeLat", Double.toString(place.getLatLng().latitude));
             addArrivalAlarm.putExtra("placeLon", Double.toString(place.getLatLng().longitude));
             startActivity(addArrivalAlarm);

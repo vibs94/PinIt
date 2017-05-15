@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table ACTIVITY(activity_id integer primary key, reminder_id integer, time_id_of_completion integer, description varchar(100)," +
                 "foreign key(reminder_id) references reminder_task(reminder_id)," +
                 "foreign key(time_id_of_completion) references time(time_id));");
-        db.execSQL("create table WAKEUPS(reminder_id integer, time_id_of_wakeup," +
+        db.execSQL("create table WAKEUPS(reminder_id integer, time_id_of_wakeup integer," +
                 "foreign key(reminder_id) references reminder_task(reminder_id),"+
                 "foreign key(time_id_of_wakeup) references time(time_id));");
     }

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
 import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
+import com.example.vibodha.pinit.View.EditAlarm;
 import com.example.vibodha.pinit.View.ViewArrivalAlarm;
 import com.example.vibodha.pinit.View.ViewReminder;
 
@@ -75,12 +76,18 @@ public class AlarmListAdapter extends ArrayAdapter<ArrivalAlarm> {
                                 break;
                             case R.id.edit_id:
                                 // implementation for edit arrival alarm
+                                Intent inten = new Intent(context, EditAlarm.class);
+                                inten.putExtra("id",singleAlarm.getTaskId());
+                                context.startActivity(inten);
+                                break;
+                            case R.id.select_succ:
+                                //implement for select successor alarm
                                 break;
                         }
                         return true;
                     }
                 });
-                popupMenu.inflate(R.menu.reminder_listitem_menu);
+                popupMenu.inflate(R.menu.alarm_list_menu);
                 popupMenu.show();
             }
 

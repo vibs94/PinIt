@@ -63,7 +63,19 @@
         <activity android:name=".View.ViewReminder" />
         <activity android:name=".View.AddArrivalAlarm" />
         <activity android:name=".View.EditReminder" />
-        <activity android:name=".View.ViewArrivalAlarm"></activity>
+        <activity android:name=".View.ViewArrivalAlarm" />
+
+        <receiver
+            android:name=".BroadcastReceiver.LocationReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="ACTION_PROXIMITY_ALERT" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".View.ShowReminder" />
+        <activity android:name=".View.EditAlarm"></activity>
     </application>
 
 </manifest>

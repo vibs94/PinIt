@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vibodha.pinit.Constants;
 import com.example.vibodha.pinit.Database.ArrivalAlarmDB;
 import com.example.vibodha.pinit.ListAdapters.ContactListAdapter;
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
@@ -25,7 +26,7 @@ import com.example.vibodha.pinit.R;
 import java.util.ArrayList;
 
 public class AddArrivalAlarm extends AppCompatActivity {
-    private static final int RESULT_PICK_CONTACT = 1;
+    //private static final int RESULT_PICK_CONTACT = 1;
     final Contact[] contact = new Contact[1];
     final ArrayList<Contact> contacts = new ArrayList<Contact>();
     TextView newContactname;
@@ -91,7 +92,7 @@ public class AddArrivalAlarm extends AppCompatActivity {
                     location = new Location(locationName, locationLon, locationLat);
 
                     //set range
-                    int range = 100;
+                    int range = 1;
 
                         // set Arrival Alarm
                         int arrivalAlarmID = arrivalAlarmDB.getNextArrivalAlarmID();
@@ -134,7 +135,7 @@ public class AddArrivalAlarm extends AppCompatActivity {
     {
         Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-        startActivityForResult(contactPickerIntent, RESULT_PICK_CONTACT);
+        startActivityForResult(contactPickerIntent, Constants.MY_PERMISSIONS_REQUEST_READ_CONTACTS);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -142,7 +143,7 @@ public class AddArrivalAlarm extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             // Check for the request code, we might be usign multiple startActivityForReslut
             switch (requestCode) {
-                case RESULT_PICK_CONTACT:
+                case Constants.MY_PERMISSIONS_REQUEST_READ_CONTACTS:
                     Toast.makeText(AddArrivalAlarm.this,"contact picked",Toast.LENGTH_SHORT).show();
                     contactPicked(data);
                     break;

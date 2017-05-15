@@ -14,6 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vibodha.pinit.Controller.TaskController;
 import com.example.vibodha.pinit.Database.ReminderDB;
 import com.example.vibodha.pinit.Model.Activity;
 import com.example.vibodha.pinit.Model.Location;
@@ -60,6 +61,7 @@ public class AddReminder extends AppCompatActivity {
         /////////////////// add reminder /////////////////
         Button btnAddReminder = (Button) findViewById(R.id.btn_add_reminder);
         final ReminderDB reminderDB = ReminderDB.getInstance(this);
+        final TaskController taskController = TaskController.getInstance(this);
 
         btnAddReminder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +87,7 @@ public class AddReminder extends AppCompatActivity {
                     //set range
                     RatingBar ratingBar = (RatingBar) findViewById(R.id.reminder_ratingBar);
                     float ratingBarValue = ratingBar.getRating();
-                    int range = Math.round(ratingBarValue * 20);
+                    int range = Math.round(ratingBarValue );
                     if (range > 0) {
                         // set Reminder
                         int reminderID = reminderDB.getNextReminderID();
@@ -93,6 +95,7 @@ public class AddReminder extends AppCompatActivity {
                         //Toast.makeText(AddReminder.this, "Set the Priority Level!!!", Toast.LENGTH_SHORT).show();
                         reminder = new Reminder(reminderID, location, false, range, activities, note);
                         if (reminderDB.addReminder(reminder)) {
+                            taskController.setReminder(reminder);
                             Toast.makeText(AddReminder.this, "Reminder added successfully ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(AddReminder.this, MainActivity.class);
                             startActivity(intent);

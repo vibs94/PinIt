@@ -55,4 +55,8 @@ public class Task {
     public void setRange(int range) {
         this.range = range;
     }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
 }

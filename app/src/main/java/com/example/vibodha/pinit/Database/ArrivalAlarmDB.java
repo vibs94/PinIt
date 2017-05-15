@@ -261,9 +261,40 @@ public class ArrivalAlarmDB {
     }
 
     public boolean editAlarm(ArrivalAlarm arrivalAlarm){
+        String query;
+        int locationID=-1;
+        long result;
+        SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
+        SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
+        Cursor cursor;
+        //insert to location table
+        ContentValues locationTableValues = new ContentValues();
+        locationTableValues.put("name",arrivalAlarm.getLocation().getLocationName());
+        locationTableValues.put("lon",arrivalAlarm.getLocation().getLongitude());
+        locationTableValues.put("lat",arrivalAlarm.getLocation().getLatitude());
+        query = "select location_id from ARRIVAL_ALARM_TASK where arrival_alarm_id="+arrivalAlarm.getTaskId();
+        cursor =  dbRead.rawQuery(query,null);
+        if(cursor.moveToNext()){
+            locationID =  cursor.getInt(cursor.getColumnIndex("location_id"));
+        }
+        result = dbWrite.update("LOCATION",locationTableValues,"location_id=?",new String[] {String.valueOf(locationID)});
+        if(result<0){
+
+            return false;
+        }
         return true;
     }
 
-
+    public boolean addSuccessor(ArrivalAlarm arrivalAlarm){
+        SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
+        long result;
+        ContentValues alarmContents = new ContentValues();
+        alarmContents.put("successor_alarm_id",arrivalAlarm.getSuccessorAlarm().getTaskId());
+        result = dbWrite.update("ARRIVAL_ALARM_TASK",alarmContents,"arrival_alarm_id=?",new String[] {String.valueOf(arrivalAlarm.getTaskId())});
+        if(result<0){
+            return  false;
+        }
+        return true;
+    }
 
 }

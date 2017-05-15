@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_edit_reminder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.vibodha.pinit.View.EditReminder">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:ems="10"
+                android:id="@+id/edit_alarm_txt_name"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Longitude"
+                android:ems="10"
+                android:id="@+id/edit_alarm_txt_longitude"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Latitude"
+                android:ems="10"
+                android:id="@+id/edit_alarm_txt_latitude"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Change Location"
+                android:layout_gravity="center"
+                android:id="@+id/edit_alarm_btn_change_location"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit Arrival Alarm"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center"
+                android:id="@+id/btn_edit_alarm"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
