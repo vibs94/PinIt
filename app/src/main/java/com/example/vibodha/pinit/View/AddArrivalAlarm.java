@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vibodha.pinit.Constants;
+import com.example.vibodha.pinit.Controller.TaskController;
 import com.example.vibodha.pinit.Database.ArrivalAlarmDB;
 import com.example.vibodha.pinit.ListAdapters.ContactListAdapter;
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
@@ -29,8 +30,8 @@ public class AddArrivalAlarm extends AppCompatActivity {
     //private static final int RESULT_PICK_CONTACT = 1;
     final Contact[] contact = new Contact[1];
     final ArrayList<Contact> contacts = new ArrayList<Contact>();
-    TextView newContactname;
-    TextView newContactno;
+    EditText newContactname;
+    EditText newContactno;
 
 
     @Override
@@ -47,8 +48,8 @@ public class AddArrivalAlarm extends AppCompatActivity {
         ////////////////// add new contact //////////////////
 
         Button btnAddContact = (Button) findViewById(R.id.btn_add_contact);
-        newContactname = (TextView) findViewById(R.id.txt_contactname);
-        newContactno = (TextView) findViewById(R.id.txt_contactno);
+        newContactname = (EditText) findViewById(R.id.txt_contactname);
+        newContactno = (EditText) findViewById(R.id.txt_contactno);
 
         btnAddContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +79,7 @@ public class AddArrivalAlarm extends AppCompatActivity {
         /////////////////// add alarm /////////////////
         Button btnAddAlarm = (Button) findViewById(R.id.btn_add_alarm);
         final ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(this);
+        final TaskController taskController = TaskController.getInstance(this);
 
         btnAddAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +101,7 @@ public class AddArrivalAlarm extends AppCompatActivity {
 
                         arrivalAlarm = new ArrivalAlarm(arrivalAlarmID,location, false, range, contacts);
                         if (arrivalAlarmDB.addArrivalAlarm(arrivalAlarm)) {
+                            taskController.setAlarm(arrivalAlarm);
                             Toast.makeText(AddArrivalAlarm.this, "Arrival Alarm added successfully ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(AddArrivalAlarm.this, MainActivity.class);
                             startActivity(intent);

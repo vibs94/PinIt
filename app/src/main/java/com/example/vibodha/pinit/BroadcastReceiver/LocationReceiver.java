@@ -7,9 +7,12 @@ import android.location.LocationManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.vibodha.pinit.Controller.AlarmController;
 import com.example.vibodha.pinit.Controller.NotificationController;
 import com.example.vibodha.pinit.Controller.TaskController;
+import com.example.vibodha.pinit.Database.ArrivalAlarmDB;
 import com.example.vibodha.pinit.Database.ReminderDB;
+import com.example.vibodha.pinit.Model.ArrivalAlarm;
 import com.example.vibodha.pinit.Model.Reminder;
 
 import java.text.ParseException;
@@ -23,20 +26,21 @@ public class LocationReceiver extends BroadcastReceiver {
         TaskController taskController=TaskController.getInstance(context);
 
         ReminderDB reminderDB = ReminderDB.getInstance(context);
+        ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(context);
 
         final boolean entering = intent.getBooleanExtra(LocationManager.KEY_PROXIMITY_ENTERING, false);
 
-        int reminderID = intent.getIntExtra("id", -1);
+        int id = intent.getIntExtra("id", -1);
         String taskType = intent.getStringExtra("type");
         Toast.makeText(context, "Loc Receiver works", Toast.LENGTH_SHORT).show();
         Log.w("Loc Receiver works", "");
 
-        if (reminderID >-1) {
+        if (id >-1) {
 //................Check entering or leaving
             /*if (entering) {*/
             if(taskType.equals("reminder")) {
                 try {
-                    Reminder reminder = reminderDB.getReminder(reminderID);
+                    Reminder reminder = reminderDB.getReminder(id);
                     if (!reminder.isCompleted()) {
                         NotificationController.viewReminderNotification(context, reminder);
                         reminder.reportWakeup();
@@ -49,7 +53,15 @@ public class LocationReceiver extends BroadcastReceiver {
 
             }*/
             }
-            else{
+            else if(taskType.equals("alarm")){
+                try {
+                    ArrivalAlarm arrivalAlarm = arrivalAlarmDB.getArrivalAlarm(id);
+                    Intent alarmIntent = new Intent(context,AlarmController.class);
+                    context.startService(alarmIntent);
+                    NotificationController.viewAlarmNotification(context,arrivalAlarm);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
             }
 

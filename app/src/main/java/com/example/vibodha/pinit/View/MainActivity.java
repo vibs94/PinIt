@@ -124,9 +124,7 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
                             showAddArrivalAlarm();
 
                         }
-                    })
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
+                    }).show();
 
 
         }

@@ -51,7 +51,7 @@ public class TaskController {
         Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);
 
         intent.putExtra("id", reminder.getTaskId());
-        intent.putExtra("type","reminder");
+        intent.putExtra("type","alarm");
 
         intent.setAction(Constants.ACTION_PROXIMITY_ALERT);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, reminder.getTaskId(), intent, 0);
@@ -75,7 +75,7 @@ public class TaskController {
         Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);
 
         intent.putExtra("id", alarm.getTaskId());
-        intent.putExtra("type","alarm");
+        intent.putExtra("type","reminder");
 
         intent.setAction(Constants.ACTION_PROXIMITY_ALERT);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getTaskId(), intent, 0);
@@ -119,8 +119,8 @@ public class TaskController {
     }
 
     //................Cancel Location Alarm.
-    private void cancelAlarm(int id) {
-
+    public void cancelAlarm(int id) throws ParseException {
+        ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(context);
         Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, 0);
 
@@ -129,7 +129,7 @@ public class TaskController {
                 ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-
+        arrivalAlarmDB.markWakeupAlarm(id);
         locationManager.removeProximityAlert(pendingIntent);
     }
 

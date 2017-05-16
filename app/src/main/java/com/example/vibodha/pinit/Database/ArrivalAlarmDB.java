@@ -233,10 +233,11 @@ public class ArrivalAlarmDB {
         return arrivalAlarms;
     }
 
-    public boolean markWakeupAlarm(ArrivalAlarm arrivalAlarm){
+    public boolean markWakeupAlarm(int id) throws ParseException {
         SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
         ContentValues timeContent = new ContentValues();
         ContentValues alarmContent = new ContentValues();
+        ArrivalAlarm arrivalAlarm = getArrivalAlarm(id);
         Date date = arrivalAlarm.getTimeOfCompletion();
         long result;
         int timeID;
@@ -253,7 +254,7 @@ public class ArrivalAlarmDB {
         timeID = getCurrentTimeID();
         alarmContent.put("time_id_of_completion",timeID);
         alarmContent.put("is_wakeup",1);
-        result = dbWrite.update("ARRIVAL_ALARM_TASK",alarmContent,"arrival_alarm_id=?",new String[] {String.valueOf(arrivalAlarm.getTaskId())});
+        result = dbWrite.update("ARRIVAL_ALARM_TASK",alarmContent,"arrival_alarm_id=?",new String[] {String.valueOf(id)});
         if(result<0){
             return false;
         }
