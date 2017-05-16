@@ -51,6 +51,7 @@ public class TaskController {
         Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);
 
         intent.putExtra("id", reminder.getTaskId());
+        intent.putExtra("type","reminder");
 
         intent.setAction(Constants.ACTION_PROXIMITY_ALERT);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, reminder.getTaskId(), intent, 0);
@@ -66,8 +67,32 @@ public class TaskController {
 
             return;
         }
-        Log.w("range: ",String.valueOf(reminder.getRange()));
+        //Log.w("range: ",String.valueOf(reminder.getRange()));
         locationManager.addProximityAlert(reminder.getLocation().getLatitude(), reminder.getLocation().getLongitude(), reminder.getRange(), -1, pendingIntent);
+    }
+
+    public void setAlarm(ArrivalAlarm alarm){
+        Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);
+
+        intent.putExtra("id", alarm.getTaskId());
+        intent.putExtra("type","alarm");
+
+        intent.setAction(Constants.ACTION_PROXIMITY_ALERT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getTaskId(), intent, 0);
+
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions((Activity) context, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    Constants.MY_PERMISSIONS_REQUEST_ACCESS_LOCATION);
+            ActivityCompat.requestPermissions((Activity) context, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    Constants.MY_PERMISSIONS_REQUEST_ACCESS_LOCATION);
+
+            return;
+        }
+        //Log.w("range: ",String.valueOf(reminder.getRange()));
+        locationManager.addProximityAlert(alarm.getLocation().getLatitude(), alarm.getLocation().getLongitude(), alarm.getRange(), -1, pendingIntent);
     }
 
     public ArrayList<Integer> bestOrdertList() throws ParseException {
@@ -94,10 +119,10 @@ public class TaskController {
     }
 
     //................Cancel Location Alarm.
-    private void cancelLocationAlarm(int task_id) {
+    private void cancelAlarm(int id) {
 
         Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, task_id, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, 0);
 
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&

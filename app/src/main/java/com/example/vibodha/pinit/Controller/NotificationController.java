@@ -49,7 +49,7 @@ public class NotificationController {
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_notify)
                         .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_notify))
-                        .setContentTitle("SMART PLANNER")
+                        .setContentTitle("PinIt-Reminder")
                         .setContentText("Arrived at "+reminder.getLocation().getLocationName())
                         .setContentInfo("Tap here to check the reminder")
                         .setPriority(Notification.PRIORITY_MAX)

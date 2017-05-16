@@ -27,15 +27,17 @@ public class LocationReceiver extends BroadcastReceiver {
         final boolean entering = intent.getBooleanExtra(LocationManager.KEY_PROXIMITY_ENTERING, false);
 
         int reminderID = intent.getIntExtra("id", -1);
+        String taskType = intent.getStringExtra("type");
         Toast.makeText(context, "Loc Receiver works", Toast.LENGTH_SHORT).show();
         Log.w("Loc Receiver works", "");
 
         if (reminderID >-1) {
 //................Check entering or leaving
             /*if (entering) {*/
+            if(taskType.equals("reminder")) {
                 try {
                     Reminder reminder = reminderDB.getReminder(reminderID);
-                    if(!reminder.isCompleted()) {
+                    if (!reminder.isCompleted()) {
                         NotificationController.viewReminderNotification(context, reminder);
                         reminder.reportWakeup();
                         reminderDB.markWakeupReminder(reminder);
@@ -46,6 +48,10 @@ public class LocationReceiver extends BroadcastReceiver {
            /* } else {
 
             }*/
+            }
+            else{
+
+            }
 
         }
     }

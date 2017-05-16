@@ -89,6 +89,14 @@ public class ShowReminder extends AppCompatActivity implements android.widget.Co
             incompleteActivityListView.setAdapter(incompleteActivityListAdapter);
         }
 
+        if(inCompleteActivities.size()==0){
+            reminder.completeReminder();
+            if(reminderDB.markReminder(reminder)){
+                //Toast.makeText(ShowReminder.this,"Reminder marked"+reminder.getTimeOfCompletion(),Toast.LENGTH_SHORT).show();
+            }
+            isCompleted.setImageResource(R.drawable.ic_tik);
+        }
+
         mark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
