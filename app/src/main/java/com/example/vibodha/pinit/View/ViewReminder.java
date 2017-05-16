@@ -43,10 +43,10 @@ public class ViewReminder extends AppCompatActivity {
             reminderNote.setText(reminder.getNote());
             reminderLocation.setText(reminder.getLocation().getLocationName());
             if(reminder.isCompleted()){
-                completeState.setImageResource(R.drawable.tik);
+                completeState.setImageResource(R.drawable.ic_tik);
             }
             else {
-                completeState.setImageResource(R.drawable.cross);
+                completeState.setImageResource(R.drawable.ic_cross);
             }
             //Toast.makeText(this,""+reminder.getActivities().size(),Toast.LENGTH_SHORT).show();
             ArrayList<Activity> activityArrayList = reminder.getActivities();

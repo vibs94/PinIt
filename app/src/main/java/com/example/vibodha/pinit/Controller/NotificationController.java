@@ -48,7 +48,7 @@ public class NotificationController {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_notify)
-                        .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_notify))
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_pinit2))
                         .setContentTitle("PinIt-Reminder")
                         .setContentText("Arrived at "+reminder.getLocation().getLocationName())
                         .setContentInfo("Tap here to check the reminder")
