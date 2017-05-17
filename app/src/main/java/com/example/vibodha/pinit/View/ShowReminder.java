@@ -1,5 +1,6 @@
 package com.example.vibodha.pinit.View;
 
+import android.app.NotificationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +46,9 @@ public class ShowReminder extends AppCompatActivity implements android.widget.Co
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_reminder);
         int reminderID = getIntent().getIntExtra("id",-1);
+        NotificationManager mNotifyMgr =
+                (NotificationManager) ShowReminder.this.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
+        mNotifyMgr.cancel(reminderID);
         reminderDB = ReminderDB.getInstance(this);
         locationName = (TextView) findViewById(R.id.show_reminder_location);
         note = (TextView) findViewById(R.id.show_reminder_note);

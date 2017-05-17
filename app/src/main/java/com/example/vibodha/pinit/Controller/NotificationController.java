@@ -112,7 +112,7 @@ public class NotificationController {
         mBuilder.setContentIntent(resultPendingIntent);
 
 // Sets an ID for the notification
-        int mNotificationId = alarm.getTaskId();
+        int mNotificationId = alarm.getTaskId()+100;
 // Gets an instance of the NotificationManager service
         NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(android.content.Context.NOTIFICATION_SERVICE);

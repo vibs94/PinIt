@@ -6,6 +6,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 
 /**
@@ -15,6 +16,7 @@ import android.support.annotation.Nullable;
 public class AlarmController extends Service {
 
     private Ringtone ringtone;
+    Vibrator vibrator;
 
     @Nullable
     @Override
@@ -26,12 +28,16 @@ public class AlarmController extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        vibrator = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
 
         if(uri==null){
             uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
 
         ringtone = RingtoneManager.getRingtone(this,uri);
+        long[] pattern = {0, 100, 1000, 300, 200, 100, 500, 200, 100};
+        vibrator.vibrate(pattern,0);
+
         ringtone.play();
 
         return START_NOT_STICKY;
@@ -41,5 +47,6 @@ public class AlarmController extends Service {
     public void onDestroy() {
         super.onDestroy();
         ringtone.stop();
+        vibrator.cancel();
     }
 }

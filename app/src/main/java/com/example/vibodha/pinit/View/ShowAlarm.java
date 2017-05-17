@@ -1,5 +1,6 @@
 package com.example.vibodha.pinit.View;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,9 @@ public class ShowAlarm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_alarm);
         final int id = getIntent().getIntExtra("id",-1);
+        NotificationManager mNotifyMgr =
+                (NotificationManager) ShowAlarm.this.getSystemService(android.content.Context.NOTIFICATION_SERVICE);
+        mNotifyMgr.cancel(id+100);
         ArrivalAlarmDB alarmDB = ArrivalAlarmDB.getInstance(this);
         final TaskController taskController = TaskController.getInstance(this);
         ArrayList<Contact> contacts = new ArrayList<>();
@@ -45,7 +49,6 @@ public class ShowAlarm extends AppCompatActivity {
             String contactName = "";
             int i;
             for (i = 0; i < contacts.size(); i++) {
-                SmsManager.getDefault().sendTextMessage(contacts.get(i).getPhoneNumber(), null, contacts.get(i).getMessage(), null, null);
                 contactName = contactName + contacts.get(i).getName() + " ";
             }
             if (i > 1){

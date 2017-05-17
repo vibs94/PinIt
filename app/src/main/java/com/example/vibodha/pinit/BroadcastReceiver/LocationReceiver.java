@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,9 +14,11 @@ import com.example.vibodha.pinit.Controller.TaskController;
 import com.example.vibodha.pinit.Database.ArrivalAlarmDB;
 import com.example.vibodha.pinit.Database.ReminderDB;
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
+import com.example.vibodha.pinit.Model.Contact;
 import com.example.vibodha.pinit.Model.Reminder;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 
 public class LocationReceiver extends BroadcastReceiver {
     public LocationReceiver() {
@@ -59,6 +62,12 @@ public class LocationReceiver extends BroadcastReceiver {
                         Intent alarmIntent = new Intent(context, AlarmController.class);
                         context.startService(alarmIntent);
                         arrivalAlarmDB.markWakeupAlarm(id);
+
+                        ArrayList<Contact> contacts = arrivalAlarm.getContacts();
+                        int i;
+                        for (i = 0; i < contacts.size(); i++) {
+                            SmsManager.getDefault().sendTextMessage(contacts.get(i).getPhoneNumber(), null, contacts.get(i).getMessage(), null, null);
+                        }
                         NotificationController.viewAlarmNotification(context, arrivalAlarm);
                     }
                 } catch (ParseException e) {
