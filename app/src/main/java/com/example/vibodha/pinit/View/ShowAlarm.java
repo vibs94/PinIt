@@ -11,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vibodha.pinit.Controller.AlarmController;
 import com.example.vibodha.pinit.Controller.TaskController;
 import com.example.vibodha.pinit.Database.ArrivalAlarmDB;
 import com.example.vibodha.pinit.Model.Activity;
@@ -64,7 +65,10 @@ public class ShowAlarm extends AppCompatActivity {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-
+                    Intent cancel = new Intent(ShowAlarm.this, AlarmController.class);
+                    stopService(cancel);
+                    finish();
+                    System.exit(0);
                 }});
 
     }

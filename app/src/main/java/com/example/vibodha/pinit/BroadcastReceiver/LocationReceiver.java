@@ -57,6 +57,7 @@ public class LocationReceiver extends BroadcastReceiver {
                     Log.w("location",arrivalAlarm.getLocation().getLocationName());
                     Intent alarmIntent = new Intent(context,AlarmController.class);
                     context.startService(alarmIntent);
+                    arrivalAlarmDB.markWakeupAlarm(id);
                     NotificationController.viewAlarmNotification(context,arrivalAlarm);
                 } catch (ParseException e) {
                     e.printStackTrace();
