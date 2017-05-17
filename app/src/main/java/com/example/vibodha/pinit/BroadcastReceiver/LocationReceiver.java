@@ -54,11 +54,13 @@ public class LocationReceiver extends BroadcastReceiver {
             else if(taskType.equals("alarm")){
                 try {
                     ArrivalAlarm arrivalAlarm = arrivalAlarmDB.getArrivalAlarm(id);
-                    Log.w("location",arrivalAlarm.getLocation().getLocationName());
-                    Intent alarmIntent = new Intent(context,AlarmController.class);
-                    context.startService(alarmIntent);
-                    arrivalAlarmDB.markWakeupAlarm(id);
-                    NotificationController.viewAlarmNotification(context,arrivalAlarm);
+                    if(!arrivalAlarm.isCompleted()) {
+                        Log.w("location", arrivalAlarm.getLocation().getLocationName());
+                        Intent alarmIntent = new Intent(context, AlarmController.class);
+                        context.startService(alarmIntent);
+                        arrivalAlarmDB.markWakeupAlarm(id);
+                        NotificationController.viewAlarmNotification(context, arrivalAlarm);
+                    }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

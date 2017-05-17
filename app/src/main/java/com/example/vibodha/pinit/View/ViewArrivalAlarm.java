@@ -1,8 +1,12 @@
 package com.example.vibodha.pinit.View;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -26,6 +30,7 @@ public class ViewArrivalAlarm extends AppCompatActivity {
         setContentView(R.layout.activity_view_arrival_alarm);
         TextView locationName = (TextView) findViewById(R.id.alarm_location);
         ImageView isCompleted = (ImageView) findViewById(R.id.complete_alarm);
+        FloatingActionButton home = (FloatingActionButton) findViewById(R.id.btn_home);
         ArrayList<Contact> contacts=null;
 
         int alarmID = getIntent().getIntExtra("id",-1);
@@ -51,6 +56,14 @@ public class ViewArrivalAlarm extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewArrivalAlarm.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
+
 }

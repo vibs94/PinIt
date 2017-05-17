@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,7 @@ public class AddArrivalAlarm extends AppCompatActivity {
     final ArrayList<Contact> contacts = new ArrayList<Contact>();
     EditText newContactname;
     EditText newContactno;
+    FloatingActionButton home;
 
 
     @Override
@@ -49,6 +51,7 @@ public class AddArrivalAlarm extends AppCompatActivity {
         ////////////////// add new contact //////////////////
 
         Button btnAddContact = (Button) findViewById(R.id.btn_add_contact);
+        home = (FloatingActionButton) findViewById(R.id.btn_home);
         newContactname = (EditText) findViewById(R.id.txt_contactname);
         newContactno = (EditText) findViewById(R.id.txt_contactno);
 
@@ -118,6 +121,14 @@ public class AddArrivalAlarm extends AppCompatActivity {
                 catch (NumberFormatException e){
                     Toast.makeText(AddArrivalAlarm.this,"Longitude and Latitude should be decimal values!!!",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddArrivalAlarm.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

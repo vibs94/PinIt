@@ -2,6 +2,7 @@ package com.example.vibodha.pinit.View;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class EditReminder extends AppCompatActivity {
         final RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         Button changeLocation = (Button) findViewById(R.id.btn_change_location);
         Button editReminder = (Button) findViewById(R.id.btn_edit_reminder);
+        FloatingActionButton home = (FloatingActionButton) findViewById(R.id.btn_home);
         //Toast.makeText(EditReminder.this,getIntent().getStringExtra("id"),Toast.LENGTH_SHORT).show();
         int reminderID = getIntent().getIntExtra("id",-1);
         final ReminderDB reminderDB = ReminderDB.getInstance(this);
@@ -121,7 +123,13 @@ public class EditReminder extends AppCompatActivity {
                 }
             }
         });
-
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditReminder.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

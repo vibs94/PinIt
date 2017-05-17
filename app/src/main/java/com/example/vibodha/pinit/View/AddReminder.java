@@ -1,6 +1,7 @@
 package com.example.vibodha.pinit.View;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,6 +40,7 @@ public class AddReminder extends AppCompatActivity {
         txtLon.setText(getIntent().getStringExtra("placeLon"));
         ////////////////// add new activity //////////////////
         Button btnAddActivity = (Button) findViewById(R.id.btn_add_activity);
+        FloatingActionButton home = (FloatingActionButton) findViewById(R.id.btn_home);
         final EditText newActivity = (EditText) findViewById(R.id.txt_activity);
         final ArrayList<String> newActivities = new ArrayList<String>();
 
@@ -116,6 +118,13 @@ public class AddReminder extends AppCompatActivity {
                 catch (NumberFormatException e){
                     Toast.makeText(AddReminder.this,"Longitude and Latitude should be decimal values!!!",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddReminder.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

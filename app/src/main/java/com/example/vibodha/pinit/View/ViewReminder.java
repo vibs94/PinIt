@@ -1,12 +1,15 @@
 package com.example.vibodha.pinit.View;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -35,6 +38,7 @@ public class ViewReminder extends AppCompatActivity {
         TextView reminderNote = (TextView) findViewById(R.id.note);
         TextView reminderLocation = (TextView) findViewById(R.id.reminder_location);
         ImageView completeState = (ImageView) findViewById(R.id.complete_state);
+        FloatingActionButton home = (FloatingActionButton) findViewById(R.id.btn_home);
         ReminderDB reminderDB = ReminderDB.getInstance(this);
         try {
 
@@ -63,6 +67,13 @@ public class ViewReminder extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewReminder.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }

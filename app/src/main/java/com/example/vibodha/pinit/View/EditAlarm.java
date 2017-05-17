@@ -1,6 +1,7 @@
 package com.example.vibodha.pinit.View;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,7 @@ public class EditAlarm extends AppCompatActivity {
         latitude = (EditText) findViewById((R.id.edit_alarm_txt_latitude));
         Button changeLocation = (Button) findViewById(R.id.edit_alarm_btn_change_location);
         Button editAlarm = (Button) findViewById(R.id.btn_edit_alarm);
-
+        FloatingActionButton home = (FloatingActionButton) findViewById(R.id.btn_home);
         int alarmID = getIntent().getIntExtra("id",-1);
         final ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(this);
         ArrivalAlarm arrivalAlarm = null;
@@ -99,6 +100,13 @@ public class EditAlarm extends AppCompatActivity {
                 catch (NumberFormatException e){
                     Toast.makeText(EditAlarm.this,"Longitude and Latitude should be decimal values!!!",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditAlarm.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
