@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table PRIORITY(priority_id integer primary key autoincrement, range integer);");
         db.execSQL("create table LOCATION(location_id integer primary key autoincrement, name varchar(30), lon float, lat float);");
         db.execSQL("create table TIME(time_id integer primary key autoincrement,datee date,hour integer,min integer);");
-        db.execSQL("create table CONTACT(contact_id integer primary key autoincrement,arrival_alarm_id integer, name varchar(30), phone_number varchar(15), " +
+        db.execSQL("create table CONTACT(contact_id integer primary key autoincrement,arrival_alarm_id integer, name varchar(30), phone_number varchar(15), message varchar(100)," +
                 "foreign key(arrival_alarm_id) references arrival_alarm_task(arrival_alarm_id)); ");
         db.execSQL("create table ARRIVAL_ALARM_TASK(arrival_alarm_id integer primary key, location_id integer, time_id_of_completion integer, " +
                 "successor_alarm_id integer,is_wakeup integer, range integer," +

@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -163,10 +164,24 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
     public void showAddReminder() {
         try {
             Intent addReminder = new Intent(this, AddReminder.class);
-            addReminder.putExtra("placeName", place.getName().toString() + " " + place.getAddress().toString());
-            addReminder.putExtra("placeLat", Double.toString(place.getLatLng().latitude));
-            addReminder.putExtra("placeLon", Double.toString(place.getLatLng().longitude));
-            startActivity(addReminder);
+            String name = place.getName().toString();
+            try{
+                int i = Integer.valueOf(name.charAt(0));
+                String[] strings = name.split("E");
+                Log.e("try work","");
+                addReminder.putExtra("placeName", strings[1] + " " + place.getAddress().toString());
+                addReminder.putExtra("placeLat", Double.toString(place.getLatLng().latitude));
+                addReminder.putExtra("placeLon", Double.toString(place.getLatLng().longitude));
+                startActivity(addReminder);
+
+            }
+            catch (Exception e) {
+                Log.e("catch","");
+                addReminder.putExtra("placeName", name+ " " + place.getAddress().toString());
+                addReminder.putExtra("placeLat", Double.toString(place.getLatLng().latitude));
+                addReminder.putExtra("placeLon", Double.toString(place.getLatLng().longitude));
+                startActivity(addReminder);
+            }
         }
         catch (NullPointerException e){
             Toast.makeText(MainActivity.this,"GPS not Functioning!",Toast.LENGTH_SHORT).show();

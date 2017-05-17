@@ -45,7 +45,7 @@ public class ShowAlarm extends AppCompatActivity {
             String contactName = "";
             int i;
             for (i = 0; i < contacts.size(); i++) {
-                SmsManager.getDefault().sendTextMessage(contacts.get(i).getPhoneNumber(), null, "Arrived at " + alarm.getLocation().getLocationName(), null, null);
+                SmsManager.getDefault().sendTextMessage(contacts.get(i).getPhoneNumber(), null, contacts.get(i).getMessage(), null, null);
                 contactName = contactName + contacts.get(i).getName() + " ";
             }
             if (i > 1){

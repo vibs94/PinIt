@@ -85,6 +85,7 @@ public class ArrivalAlarmDB {
             contactTableValues.put("arrival_alarm_id",arrivalAlarm.getTaskId());
             contactTableValues.put("name",contacts.get(i).getName());
             contactTableValues.put("phone_number",contacts.get(i).getPhoneNumber());
+            contactTableValues.put("message",contacts.get(i).getMessage());
             result = dbWrite.insert("CONTACT",null,contactTableValues);
             if(result==-1) {
                 return false;
@@ -134,6 +135,7 @@ public class ArrivalAlarmDB {
         ArrayList<Contact> contacts = new ArrayList<Contact>();
         String conName;
         String conNo;
+        String message;
         int location_id =0 ;
         int time_id=0;
         int range = 0;
@@ -157,7 +159,8 @@ public class ArrivalAlarmDB {
         while(cursor.moveToNext()){
             conName = cursor.getString(cursor.getColumnIndex("name"));
             conNo = cursor.getString(cursor.getColumnIndex("phone_number"));
-            contact = new Contact(conName,conNo);
+            message = cursor.getString(cursor.getColumnIndex("message"));
+            contact = new Contact(conName,conNo,message);
             contacts.add(contact);
         }
 

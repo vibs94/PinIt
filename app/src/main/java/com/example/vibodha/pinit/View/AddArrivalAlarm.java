@@ -34,6 +34,7 @@ public class AddArrivalAlarm extends AppCompatActivity {
     final ArrayList<Contact> contacts = new ArrayList<Contact>();
     EditText newContactname;
     EditText newContactno;
+    EditText message;
     FloatingActionButton home;
 
 
@@ -54,6 +55,7 @@ public class AddArrivalAlarm extends AppCompatActivity {
         home = (FloatingActionButton) findViewById(R.id.btn_home);
         newContactname = (EditText) findViewById(R.id.txt_contactname);
         newContactno = (EditText) findViewById(R.id.txt_contactno);
+        message = (EditText) findViewById(R.id.txt_message);
 
         btnAddContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,9 +67,12 @@ public class AddArrivalAlarm extends AppCompatActivity {
                 else if(!checkNumber(newContactno.getText().toString())){
                     Toast.makeText(AddArrivalAlarm.this, "Contact number format is wrong!", Toast.LENGTH_SHORT).show();
                 }
+                else if(message.getText().toString().equals(null)||message.getText().toString().equals("")){
+                    Toast.makeText(AddArrivalAlarm.this, "Message cannot be empty!!!", Toast.LENGTH_SHORT).show();
+                }
                 else{
                     Toast.makeText(AddArrivalAlarm.this, "Contact added.", Toast.LENGTH_SHORT).show();
-                    contact[0] = new Contact(newContactname.getText().toString(),newContactno.getText().toString());
+                    contact[0] = new Contact(newContactname.getText().toString(),newContactno.getText().toString(),message.getText().toString());
                     contacts.add(contact[0]);
                     ListView listView = (ListView) findViewById(R.id.contact_list);
                     Contact[] contacts1 = contacts.toArray(new Contact[contacts.size()]);
@@ -75,6 +80,7 @@ public class AddArrivalAlarm extends AppCompatActivity {
                     listView.setAdapter(contactListAdapter);
                     newContactname.setText("");
                     newContactno.setText("");
+                    message.setText("");
                 }
             }
         });

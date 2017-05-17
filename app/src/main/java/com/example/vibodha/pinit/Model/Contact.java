@@ -8,10 +8,13 @@ public class Contact {
 
     private String name;
     private String phoneNumber;
+    private String message;
 
-    public Contact(String name, String phoneNumber) {
+    public Contact(String name, String phoneNumber, String message) {
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.message = message;
+        ;
     }
 
     public String getName() {
@@ -20,5 +23,9 @@ public class Contact {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }
