@@ -190,7 +190,7 @@ public class ArrivalAlarmDB {
         query = "select * from TIME where time_id="+time_id;
         cursor = dbRead.rawQuery(query,null);
         if (cursor.moveToNext()) {
-            time = cursor.getString(cursor.getColumnIndex("date")) + " " + cursor.getString(cursor.getColumnIndex("hour")) + ":" + cursor.getString(cursor.getColumnIndex("min"));
+            time = cursor.getString(cursor.getColumnIndex("datee")) + " " + cursor.getString(cursor.getColumnIndex("hour")) + ":" + cursor.getString(cursor.getColumnIndex("min"));
             dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
             try {
                 timeOfCompletion = dateFormat.parse(time);
@@ -204,7 +204,7 @@ public class ArrivalAlarmDB {
         }
 
         arrivalAlarm = new ArrivalAlarm(id,location,isWakeup,range,contacts);
-        Log.w("#contacts",""+arrivalAlarm.getContacts().size());
+        //Log.w("#contacts",""+arrivalAlarm.getContacts().size());
         arrivalAlarm.setSuccessorAlarm(successorAlarm);
         arrivalAlarm.setTimeOfCompletion(timeOfCompletion);
 
@@ -238,6 +238,7 @@ public class ArrivalAlarmDB {
         ContentValues timeContent = new ContentValues();
         ContentValues alarmContent = new ContentValues();
         ArrivalAlarm arrivalAlarm = getArrivalAlarm(id);
+        arrivalAlarm.markAlarm();
         Date date = arrivalAlarm.getTimeOfCompletion();
         long result;
         int timeID;

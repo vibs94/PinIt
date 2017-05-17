@@ -51,7 +51,7 @@ public class TaskController {
         Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);
 
         intent.putExtra("id", reminder.getTaskId());
-        intent.putExtra("type","alarm");
+        intent.putExtra("type","reminder");
 
         intent.setAction(Constants.ACTION_PROXIMITY_ALERT);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, reminder.getTaskId(), intent, 0);
@@ -75,7 +75,7 @@ public class TaskController {
         Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);
 
         intent.putExtra("id", alarm.getTaskId());
-        intent.putExtra("type","reminder");
+        intent.putExtra("type","alarm");
 
         intent.setAction(Constants.ACTION_PROXIMITY_ALERT);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getTaskId(), intent, 0);
@@ -94,6 +94,53 @@ public class TaskController {
         //Log.w("range: ",String.valueOf(reminder.getRange()));
         locationManager.addProximityAlert(alarm.getLocation().getLatitude(), alarm.getLocation().getLongitude(), alarm.getRange(), -1, pendingIntent);
     }
+
+    public void setTask(int id,String type) throws ParseException {
+        Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);
+
+        intent.putExtra("id", id);
+        intent.putExtra("type",type);
+
+        double lat;
+        double lon;
+        int range;
+        int intentID;
+        if(type.equals("reminder")){
+            ReminderDB reminderDB = ReminderDB.getInstance(context);
+            Reminder reminder = reminderDB.getReminder(id);
+            lat = reminder.getLocation().getLatitude();
+            lon = reminder.getLocation().getLongitude();
+            range = reminder.getRange();
+            intentID = id;
+        }
+        else{
+            ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(context);
+            ArrivalAlarm arrivalAlarm = arrivalAlarmDB.getArrivalAlarm(id);
+            lat = arrivalAlarm.getLocation().getLatitude();
+            lon = arrivalAlarm.getLocation().getLongitude();
+            range = arrivalAlarm.getRange();
+            intentID = id+100;
+        }
+
+        intent.setAction(Constants.ACTION_PROXIMITY_ALERT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, intentID, intent, 0);
+
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions((Activity) context, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    Constants.MY_PERMISSIONS_REQUEST_ACCESS_LOCATION);
+            ActivityCompat.requestPermissions((Activity) context, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    Constants.MY_PERMISSIONS_REQUEST_ACCESS_LOCATION);
+
+            return;
+        }
+        //Log.w("range: ",String.valueOf(reminder.getRange()));
+        locationManager.addProximityAlert(lat, lon, range, -1, pendingIntent);
+    }
+
+
 
     public ArrayList<Integer> bestOrdertList() throws ParseException {
         ArrayList<Integer> bestOrder = new ArrayList<>();
@@ -122,7 +169,7 @@ public class TaskController {
     public void cancelAlarm(int id) throws ParseException {
         ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(context);
         Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id+100, intent, 0);
 
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&

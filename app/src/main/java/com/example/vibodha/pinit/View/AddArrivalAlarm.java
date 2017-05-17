@@ -24,6 +24,7 @@ import com.example.vibodha.pinit.Model.Contact;
 import com.example.vibodha.pinit.Model.Location;
 import com.example.vibodha.pinit.R;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class AddArrivalAlarm extends AppCompatActivity {
@@ -94,14 +95,18 @@ public class AddArrivalAlarm extends AppCompatActivity {
                     location = new Location(locationName, locationLon, locationLat);
 
                     //set range
-                    int range = 1;
+                    int range = 5;
 
                         // set Arrival Alarm
                         int arrivalAlarmID = arrivalAlarmDB.getNextArrivalAlarmID();
 
                         arrivalAlarm = new ArrivalAlarm(arrivalAlarmID,location, false, range, contacts);
                         if (arrivalAlarmDB.addArrivalAlarm(arrivalAlarm)) {
-                            taskController.setAlarm(arrivalAlarm);
+                            try {
+                                taskController.setTask(arrivalAlarmID,"alarm");
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                             Toast.makeText(AddArrivalAlarm.this, "Arrival Alarm added successfully ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(AddArrivalAlarm.this, MainActivity.class);
                             startActivity(intent);

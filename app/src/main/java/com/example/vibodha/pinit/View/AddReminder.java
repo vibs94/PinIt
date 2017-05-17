@@ -21,6 +21,7 @@ import com.example.vibodha.pinit.Model.Location;
 import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class AddReminder extends AppCompatActivity {
@@ -95,7 +96,11 @@ public class AddReminder extends AppCompatActivity {
                         //Toast.makeText(AddReminder.this, "Set the Priority Level!!!", Toast.LENGTH_SHORT).show();
                         reminder = new Reminder(reminderID, location, false, range, activities, note);
                         if (reminderDB.addReminder(reminder)) {
-                            taskController.setReminder(reminder);
+                            try {
+                                taskController.setTask(reminderID,"reminder");
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                             Toast.makeText(AddReminder.this, "Reminder added successfully ", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(AddReminder.this, MainActivity.class);
                             startActivity(intent);

@@ -1,6 +1,7 @@
 package com.example.vibodha.pinit.Model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by vibodha on 3/26/17.
@@ -18,6 +19,11 @@ public class ArrivalAlarm extends Task{
 
     public void setSuccessorAlarm(ArrivalAlarm successorAlarm) {
         this.successorAlarm = successorAlarm;
+    }
+
+    public void markAlarm(){
+        this.setCompleted(true);
+        this.setTimeOfCompletion(new Date(System.currentTimeMillis()));
     }
 
     public ArrayList<Contact> getContacts() {

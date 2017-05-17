@@ -36,8 +36,9 @@ public class LocationReceiver extends BroadcastReceiver {
         Log.w("Loc Receiver works", "");
 
         if (id >-1) {
-//................Check entering or leaving
-            /*if (entering) {*/
+
+            Log.w("type",taskType);
+            Log.w("id",String.valueOf(id));
             if(taskType.equals("reminder")) {
                 try {
                     Reminder reminder = reminderDB.getReminder(id);
@@ -49,13 +50,11 @@ public class LocationReceiver extends BroadcastReceiver {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-           /* } else {
-
-            }*/
             }
             else if(taskType.equals("alarm")){
                 try {
                     ArrivalAlarm arrivalAlarm = arrivalAlarmDB.getArrivalAlarm(id);
+                    Log.w("location",arrivalAlarm.getLocation().getLocationName());
                     Intent alarmIntent = new Intent(context,AlarmController.class);
                     context.startService(alarmIntent);
                     NotificationController.viewAlarmNotification(context,arrivalAlarm);

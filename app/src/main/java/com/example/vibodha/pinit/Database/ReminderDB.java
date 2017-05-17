@@ -255,7 +255,7 @@ public class ReminderDB {
         cursor = dbRead.rawQuery(query,null);
         while(cursor.moveToNext()){
             timeIDOfCompletion = cursor.getInt(cursor.getColumnIndex("time_id_of_wakeup"));
-            Log.w("timeID",String.valueOf(timeIDOfCompletion));
+            //Log.w("timeID",String.valueOf(timeIDOfCompletion));
             query = "select * from TIME where time_id="+timeIDOfCompletion;
             cursor1 = dbRead.rawQuery(query,null);
             if (cursor1.moveToNext()) {

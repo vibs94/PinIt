@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
 import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
+import com.example.vibodha.pinit.View.ShowAlarm;
 import com.example.vibodha.pinit.View.ShowReminder;
 
 /**
@@ -71,7 +72,8 @@ public class NotificationController {
     public static void viewAlarmNotification(Context context, ArrivalAlarm alarm) {
         /*Intent resultIntent = new Intent(context, ShowReminder.class);
         resultIntent.putExtra("id",alarm.getTaskId());*/
-        Intent resultIntent = new Intent(context,AlarmController.class);
+        Intent resultIntent = new Intent(context,ShowAlarm.class);
+        resultIntent.putExtra("id",alarm.getTaskId());
 
 
 
