@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -81,7 +81,11 @@
         <activity android:name=".View.ShowReminder" />
         <activity android:name=".View.EditAlarm" />
         <activity android:name=".View.TestActivity" />
-        <activity android:name=".View.ShowAlarm"></activity>
+        <activity android:name=".View.ShowAlarm" />
+        <activity android:name=".View.AddSuccessor"
+            android:theme="@style/AppTheme.PopTheme">
+
+        </activity>
     </application>
 
 </manifest>

@@ -43,7 +43,7 @@ public class LocationReceiver extends BroadcastReceiver {
 
         int id = intent.getIntExtra("id", -1);
         String taskType = intent.getStringExtra("type");
-        //Toast.makeText(context, "Loc Receiver works", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Location Receiver works", Toast.LENGTH_SHORT).show();
         Log.w("Loc Receiver works", "");
 
         if (id >-1) {
@@ -100,15 +100,15 @@ public class LocationReceiver extends BroadcastReceiver {
             return false;
         }
         android.location.Location myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        double accuraccy = 1000.0;
-        Log.e("current location",String.valueOf((Math.round(myLocation.getLatitude()*accuraccy)/accuraccy)));
-        Log.e("location",String.valueOf((Math.round(location.getLatitude()*accuraccy)/accuraccy)));
-        if((Math.round(myLocation.getLatitude()*accuraccy)/accuraccy)!=(Math.round(location.getLatitude()*accuraccy)/accuraccy)){
+        double accuracy = 100.0;
+        Log.e("current location",String.valueOf((Math.round(myLocation.getLatitude()*accuracy)/accuracy)));
+        Log.e("location",String.valueOf((Math.round(location.getLatitude()*accuracy)/accuracy)));
+        if((Math.round(myLocation.getLatitude()*accuracy)/accuracy)!=(Math.round(location.getLatitude()*accuracy)/accuracy)){
             return false;
         }
-        Log.e("current location",String.valueOf((Math.round(myLocation.getLongitude()*accuraccy)/accuraccy)));
-        Log.e("location",String.valueOf((Math.round(location.getLongitude()*accuraccy)/accuraccy)));
-        if((Math.round(myLocation.getLongitude()*accuraccy)/accuraccy)!=(Math.round(location.getLongitude()*accuraccy)/accuraccy)){
+        Log.e("current location",String.valueOf((Math.round(myLocation.getLongitude()*accuracy)/accuracy)));
+        Log.e("location",String.valueOf((Math.round(location.getLongitude()*accuracy)/accuracy)));
+        if((Math.round(myLocation.getLongitude()*accuracy)/accuracy)!=(Math.round(location.getLongitude()*accuracy)/accuracy)){
             return false;
         }
         return true;

@@ -14,10 +14,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
 import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
+import com.example.vibodha.pinit.View.AddSuccessor;
 import com.example.vibodha.pinit.View.EditAlarm;
 import com.example.vibodha.pinit.View.ViewArrivalAlarm;
 import com.example.vibodha.pinit.View.ViewReminder;
@@ -82,6 +84,18 @@ public class AlarmListAdapter extends ArrayAdapter<ArrivalAlarm> {
                                 break;
                             case R.id.select_succ:
                                 //implement for select successor alarm
+                                if(singleAlarm.isCompleted()){
+                                    Toast.makeText(context,"Alarm is completed!!!",Toast.LENGTH_SHORT).show();
+                                }
+                                else if(singleAlarm.getSuccessorAlarm()!=null){
+                                    Toast.makeText(context,"Alarm has a successor already!!!",Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Intent intent = new Intent(context, AddSuccessor.class);
+                                    intent.putExtra("id",singleAlarm.getTaskId());
+                                    context.startActivity(intent);
+
+                                }
                                 break;
                         }
                         return true;
