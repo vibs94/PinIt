@@ -222,10 +222,10 @@ public class ArrivalAlarmDB {
         ArrivalAlarm arrivalAlarm;
         ArrayList<ArrivalAlarm> arrivalAlarms = new ArrayList<ArrivalAlarm>();
 
-        query = "select reminder_id from REMINDER_TASK;";
+        query = "select arrival_alarm_id from ARRIVAL_ALARM_TASK;";
         cursor = dbRead.rawQuery(query,null);
         while (cursor.moveToNext()){
-            alarmID = cursor.getInt(cursor.getColumnIndex("reminder_id"));
+            alarmID = cursor.getInt(cursor.getColumnIndex("arrival_alarm_id"));
             try {
                 arrivalAlarm = getArrivalAlarm(alarmID);
                 arrivalAlarms.add(arrivalAlarm);

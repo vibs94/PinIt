@@ -119,7 +119,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(this);
             try {
                 ArrayList<ArrivalAlarm> arrivalAlarms = arrivalAlarmDB.getArrivalAlarms();
-                for (int i=0;i<arrivalAlarms.size()-1;i++){
+                for (int i=0;i<arrivalAlarms.size();i++){
                     location = new LatLng(arrivalAlarms.get(i).getLocation().getLatitude(),arrivalAlarms.get(i).getLocation().getLongitude());
                     marker = new MarkerOptions().position(location);
                     if(arrivalAlarms.get(i).isCompleted()) {
