@@ -12,6 +12,10 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.vibodha.pinit.Database.ArrivalAlarmDB;
+import com.example.vibodha.pinit.Database.ReminderDB;
+import com.example.vibodha.pinit.Model.ArrivalAlarm;
+import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -32,6 +36,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.text.ParseException;
+import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -84,13 +91,53 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        myLocation = locationManager.getLastKnownLocation("gps");
-        // Add a marker in current location and move the camera
-        LatLng currentLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-        MarkerOptions marker = new MarkerOptions().position(currentLocation).title("Marker in current location");
-        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon2));
-        mMap.addMarker(marker);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation,13.0f));
+        int type = getIntent().getIntExtra("type",-1);
+        LatLng location ;
+        MarkerOptions marker;
+        if(type==1){
+            ReminderDB reminderDB = ReminderDB.getInstance(this);
+            try {
+                ArrayList<Reminder> reminders = reminderDB.getReminders();
+                for(int i=0;i<reminders.size();i++){
+                    location = new LatLng(reminders.get(i).getLocation().getLatitude(),reminders.get(i).getLocation().getLongitude());
+                    marker = new MarkerOptions().position(location);
+                    if(reminders.get(i).isCompleted()) {
+                        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_complete));
+                    }
+                    else {
+                        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_incomplete));
+                    }
+                    mMap.addMarker(marker);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,12.0f));
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else if(type==2){
+            ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(this);
+            try {
+                ArrayList<ArrivalAlarm> arrivalAlarms = arrivalAlarmDB.getArrivalAlarms();
+                for (int i=0;i<arrivalAlarms.size()-1;i++){
+                    location = new LatLng(arrivalAlarms.get(i).getLocation().getLatitude(),arrivalAlarms.get(i).getLocation().getLongitude());
+                    marker = new MarkerOptions().position(location);
+                    if(arrivalAlarms.get(i).isCompleted()) {
+                        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_complete));
+                    }
+                    else {
+                        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_incomplete));
+                    }
+                    mMap.addMarker(marker);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,12.0f));
+
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+
 
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);

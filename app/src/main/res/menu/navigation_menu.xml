@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/nav_settings"
-          android:title="Settings"
-          android:icon="@mipmap/ic_settings_black_24dp"/>
+    <item android:id="@+id/nav_reminder"
+          android:title="Reminder Positions"
+          android:icon="@drawable/ic_reminder"/>
 
-    <item android:id="@+id/nav_logout"
-        android:title="Log In"
-        android:icon="@mipmap/exit"/>
+    <item android:id="@+id/nav_alarm"
+        android:title="Alarm Positions"
+        android:icon="@drawable/ic_alarm"/>
 
 </menu>

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vibodha.pinit.Database.ArrivalAlarmDB;
@@ -41,6 +42,8 @@ public class AddSuccessor extends AppCompatActivity implements android.widget.Co
         final ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(this);
         final int id = getIntent().getIntExtra("id",-1);
         final ArrayList<ArrivalAlarm> successors = new ArrayList<>();
+        Button addSucce = (Button) findViewById(R.id.btn_add_succ);
+        TextView message = (TextView) findViewById(R.id.add_succ_message);
         try {
             // create alarm list
             ArrayList<ArrivalAlarm> alarmArrayList = arrivalAlarmDB.getArrivalAlarms();
@@ -50,15 +53,23 @@ public class AddSuccessor extends AppCompatActivity implements android.widget.Co
                     successors.add(alarmArrayList.get(i));
                 }
             }
-            ArrivalAlarm[] alarms = successors.toArray(new ArrivalAlarm[successors.size()]);
-            ListAdapter alarmListAdapter = new SuccessorListAdapter(this,alarms);
-            alarmListView = (ListView) findViewById(R.id.successor_list);
-            alarmListView.setAdapter(alarmListAdapter);
+            if(successors.size()>0) {
+                ArrivalAlarm[] alarms = successors.toArray(new ArrivalAlarm[successors.size()]);
+                ListAdapter alarmListAdapter = new SuccessorListAdapter(this, alarms);
+                alarmListView = (ListView) findViewById(R.id.successor_list);
+                alarmListView.setAdapter(alarmListAdapter);
+            }
+            else{
+
+                message.setText("No options for successor");
+                addSucce.setVisibility(View.GONE);
+                //Toast.makeText(AddSuccessor.this,"No options for successor",Toast.LENGTH_SHORT).show();
+            }
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Button addSucce = (Button) findViewById(R.id.btn_add_succ);
+
         addSucce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

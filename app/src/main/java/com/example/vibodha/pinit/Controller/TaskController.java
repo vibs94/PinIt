@@ -148,21 +148,27 @@ public class TaskController {
         ArrayList<Integer> endNodes = new ArrayList<>();
         ArrayList<ArrivalAlarm> arrivalAlarms = arrivalAlarmDB.getArrivalAlarms();
         ArrivalAlarm arrivalAlarm;
-        int size = arrivalAlarms.size();
-        Integer[][] successorList= new Integer[size][size];
-        // colume indices consider as successors
-        for(int i=0;i<size;i++){
-            for(int j=0;j<size;j++){
-                successorList[i][j] = -1;
+        int count = arrivalAlarms.size();
+        if(count>0) {
+            int size = arrivalAlarms.get(count-1).getTaskId();
+            Integer[][] successorList = new Integer[size][size];
+            // colume indices consider as successors
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    successorList[i][j] = -1;
+                }
             }
-        }
-        for(int i=0;i<size;i++){
-            arrivalAlarm = arrivalAlarms.get(i);
-            successorList[i][arrivalAlarm.getSuccessorAlarm().getTaskId()] = 1;
-        }
+            for (int i = 1; i < size; i++) {
+                arrivalAlarm = arrivalAlarms.get(i);
+                successorList[i][arrivalAlarm.getSuccessorAlarm().getTaskId()] = 1;
+            }
 
 
-        return  bestOrder;
+            return bestOrder;
+        }
+        else{
+            return null;
+        }
     }
 
     ////////////////////// Cancel Alarm /////////////////////////////////////

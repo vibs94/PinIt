@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/reminder_tab">
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,4 +15,6 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/allreminder_list"
         />
-</RelativeLayout>
+</LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>

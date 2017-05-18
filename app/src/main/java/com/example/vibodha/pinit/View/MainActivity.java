@@ -2,8 +2,12 @@ package com.example.vibodha.pinit.View;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -21,11 +25,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.vibodha.pinit.Constants;
 import com.example.vibodha.pinit.R;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
-public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDialogListner{
+public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDialogListner,NavigationView.OnNavigationItemSelectedListener{
+
+
+    int pos=-1;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -68,14 +76,14 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
+        requestLocationPermissions();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                Intent map = new Intent(MainActivity.this,MapsActivity.class);
 //                startActivity(map);
-
+                //Log.e("posi",String.valueOf());
                 PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
 
                 try{
@@ -94,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -126,7 +137,36 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
      }
 
 
+    //      ................Permission request.....................................................
 
+    private void requestLocationPermissions(){
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    Constants.MY_PERMISSIONS_REQUEST_ACCESS_LOCATION);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    Constants.MY_PERMISSIONS_REQUEST_ACCESS_LOCATION);
+
+            return;
+        }
+    }
+
+    //    ...............................Permission response..........................................
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case Constants.MY_PERMISSIONS_REQUEST_ACCESS_LOCATION:{
+                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+
+                }
+                else{
+                    requestLocationPermissions();
+                }
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -199,6 +239,22 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
         }
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.nav_reminder){
+            Intent reminderMap = new Intent(MainActivity.this,MapsActivity.class);
+            reminderMap.putExtra("type",1);
+            startActivity(reminderMap);
+        }
+        if(id==R.id.nav_alarm){
+            Intent alarmMap = new Intent(MainActivity.this,MapsActivity.class);
+            alarmMap.putExtra("type",2);
+            startActivity(alarmMap);
+        }
+        return false;
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -238,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
 
         @Override
         public Fragment getItem(int position) {
+            pos = position;
             switch (position){
                 case 0:
                     ReminderTab reminderTab = new ReminderTab();

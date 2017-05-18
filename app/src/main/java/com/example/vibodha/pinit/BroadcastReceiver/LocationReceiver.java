@@ -98,6 +98,11 @@ public class LocationReceiver extends BroadcastReceiver {
             return false;
         }
         android.location.Location myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if(myLocation==null){
+            myLocation = new android.location.Location("me");
+            myLocation.setLatitude(6.8);
+            myLocation.setLongitude(79.9);
+        }
         double accuracy = 100.0;
         Log.e("current location",String.valueOf((Math.round(myLocation.getLatitude()*accuracy)/accuracy)));
         Log.e("location",String.valueOf((Math.round(location.getLatitude()*accuracy)/accuracy)));
