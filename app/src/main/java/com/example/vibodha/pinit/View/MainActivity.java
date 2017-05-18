@@ -101,13 +101,7 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
     @Override
     protected void onActivityResult(int reqestCode, int resultCode, Intent data){
         if(reqestCode == REQUEST_CODE_PLACEPICKER && resultCode == RESULT_OK){
-//            AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-//            View mView = getLayoutInflater().inflate(R.layout.task_dialog,null);
-//            mBuilder.setView(mView);
-//            AlertDialog dialog = mBuilder.create();
-//            dialog.show();
-//            TaskDialog taskDialog = new TaskDialog();
-//            taskDialog.show(fragmentManager,"TaskDialog");
+
             place = PlacePicker.getPlace(data,this);
             new AlertDialog.Builder(this)
                     .setTitle("PinIt")

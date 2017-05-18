@@ -1,6 +1,6 @@
 package com.example.vibodha.pinit.View;
 
-import android.app.Fragment;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,11 +10,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.vibodha.pinit.Database.ArrivalAlarmDB;
-import com.example.vibodha.pinit.Database.ReminderDB;
 import com.example.vibodha.pinit.ListAdapters.AlarmListAdapter;
-import com.example.vibodha.pinit.ListAdapters.ReminderListAdapter;
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
-import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
 
 import java.text.ParseException;

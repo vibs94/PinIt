@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.example.vibodha.pinit.Database.ArrivalAlarmDB;
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
 import com.example.vibodha.pinit.Model.Location;
-import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -55,8 +54,7 @@ public class EditAlarm extends AppCompatActivity {
         changeLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent map = new Intent(MainActivity.this,MapsActivity.class);
-//                startActivity(map);
+
 
                 PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
 

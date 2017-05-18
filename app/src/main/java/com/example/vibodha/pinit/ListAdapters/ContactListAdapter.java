@@ -9,11 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.vibodha.pinit.Model.Contact;
-import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
 
 import static com.example.vibodha.pinit.R.layout.contacts_list;
-import static com.example.vibodha.pinit.R.layout.reminder_list;
+
 
 
 /**

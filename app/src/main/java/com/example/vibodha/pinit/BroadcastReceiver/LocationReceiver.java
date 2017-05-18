@@ -34,8 +34,6 @@ public class LocationReceiver extends BroadcastReceiver {
 
         this.context = context;
 
-        TaskController taskController=TaskController.getInstance(context);
-
         ReminderDB reminderDB = ReminderDB.getInstance(context);
         ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(context);
 
@@ -43,7 +41,7 @@ public class LocationReceiver extends BroadcastReceiver {
 
         int id = intent.getIntExtra("id", -1);
         String taskType = intent.getStringExtra("type");
-        //Toast.makeText(context, "Location Receiver works", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Location Receiver works", Toast.LENGTH_SHORT).show();
         Log.w("Loc Receiver works", "");
 
         if (id >-1) {
@@ -54,9 +52,9 @@ public class LocationReceiver extends BroadcastReceiver {
                 try {
                     Reminder reminder = reminderDB.getReminder(id);
                     if (!reminder.isCompleted()&&checkLocation(reminder.getLocation())) {
-                        NotificationController.viewReminderNotification(context, reminder);
-                        reminder.reportWakeup();
-                        reminderDB.markWakeupReminder(reminder);
+                        NotificationController.viewReminderNotification(context, reminder);  //view reminder notification
+                        reminder.reportWakeup();                                             //mark reminder wakeup time
+                        reminderDB.markWakeupReminder(reminder);                             //record in database
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -67,16 +65,16 @@ public class LocationReceiver extends BroadcastReceiver {
                     ArrivalAlarm arrivalAlarm = arrivalAlarmDB.getArrivalAlarm(id);
                     if(!arrivalAlarm.isCompleted()&&checkLocation(arrivalAlarm.getLocation())) {
                         Log.w("location", arrivalAlarm.getLocation().getLocationName());
-                        Intent alarmIntent = new Intent(context, AlarmController.class);
+                        Intent alarmIntent = new Intent(context, AlarmController.class);            //ring the alarm
                         context.startService(alarmIntent);
-                        arrivalAlarmDB.markWakeupAlarm(id);
-
+                        arrivalAlarmDB.markWakeupAlarm(id);                                         //record alarm as wakeup in database
+                        ////////////// send sms to the saved contacts
                         ArrayList<Contact> contacts = arrivalAlarm.getContacts();
                         int i;
                         for (i = 0; i < contacts.size(); i++) {
                             SmsManager.getDefault().sendTextMessage(contacts.get(i).getPhoneNumber(), null, contacts.get(i).getMessage(), null, null);
                         }
-                        NotificationController.viewAlarmNotification(context, arrivalAlarm);
+                        NotificationController.viewAlarmNotification(context, arrivalAlarm);        //view notification
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -86,7 +84,7 @@ public class LocationReceiver extends BroadcastReceiver {
 
         }
     }
-
+///// check the current device location with location of the alarm
     private boolean checkLocation(Location location){
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED

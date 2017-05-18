@@ -1,24 +1,17 @@
 package com.example.vibodha.pinit.View;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.vibodha.pinit.Database.ReminderDB;
 import com.example.vibodha.pinit.ListAdapters.ActivityListAdapter;
-import com.example.vibodha.pinit.ListAdapters.ReminderListAdapter;
 import com.example.vibodha.pinit.Model.Activity;
 import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;

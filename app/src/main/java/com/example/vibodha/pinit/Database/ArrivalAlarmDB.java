@@ -245,6 +245,7 @@ public class ArrivalAlarmDB {
         Date date = arrivalAlarm.getTimeOfCompletion();
         long result;
         int timeID;
+        /////////// add time to TIME table ////////////////
         SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat hour = new SimpleDateFormat("HH");
         SimpleDateFormat min = new SimpleDateFormat("mm");
@@ -255,6 +256,7 @@ public class ArrivalAlarmDB {
         if(result<0){
             return false;
         }
+        ///////////// change the time id in ALARM table //////////////
         timeID = getCurrentTimeID();
         alarmContent.put("time_id_of_completion",timeID);
         alarmContent.put("is_wakeup",1);
@@ -272,7 +274,7 @@ public class ArrivalAlarmDB {
         SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
         SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
         Cursor cursor;
-        //insert to location table
+        //change in location table
         ContentValues locationTableValues = new ContentValues();
         locationTableValues.put("name",arrivalAlarm.getLocation().getLocationName());
         locationTableValues.put("lon",arrivalAlarm.getLocation().getLongitude());

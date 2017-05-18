@@ -45,7 +45,7 @@ public class TaskController {
         }
         return taskController;
     }
-
+////////////// set reminder location listener ///////////////
     public void setReminder(Reminder reminder) {
 
         Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);
@@ -55,7 +55,7 @@ public class TaskController {
 
         intent.setAction(Constants.ACTION_PROXIMITY_ALERT);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, reminder.getTaskId(), intent, 0);
-
+/////////////////// check if all the permission granted /////////////////
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -67,7 +67,7 @@ public class TaskController {
 
             return;
         }
-        //Log.w("range: ",String.valueOf(reminder.getRange()));
+
         locationManager.addProximityAlert(reminder.getLocation().getLatitude(), reminder.getLocation().getLongitude(), reminder.getRange(), -1, pendingIntent);
     }
 
@@ -91,7 +91,7 @@ public class TaskController {
 
             return;
         }
-        //Log.w("range: ",String.valueOf(reminder.getRange()));
+
         locationManager.addProximityAlert(alarm.getLocation().getLatitude(), alarm.getLocation().getLongitude(), alarm.getRange(), -1, pendingIntent);
     }
 
@@ -136,7 +136,7 @@ public class TaskController {
 
             return;
         }
-        //Log.w("range: ",String.valueOf(reminder.getRange()));
+
         locationManager.addProximityAlert(lat, lon, range, -1, pendingIntent);
     }
 
@@ -165,7 +165,7 @@ public class TaskController {
         return  bestOrder;
     }
 
-    //................Cancel Location Alarm.
+    ////////////////////// Cancel Alarm /////////////////////////////////////
     public void cancelAlarm(int id) throws ParseException {
         ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(context);
         Intent intent = new Intent(Constants.ACTION_PROXIMITY_ALERT);

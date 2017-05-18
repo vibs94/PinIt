@@ -36,16 +36,9 @@ public class NotificationController {
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
 
-/*
-        Intent completeIntent = new Intent();
-        completeIntent.putExtra("task_id", task_id);
-        completeIntent.setAction("complete_action");
-        PendingIntent completePendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, completeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent forgetIntent = new Intent();
-        forgetIntent.putExtra("task_id", task_id);
-        forgetIntent.setAction("forget_action");
-        PendingIntent forgetPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, forgetIntent, PendingIntent.FLAG_UPDATE_CURRENT);*/
+
+
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
@@ -70,8 +63,7 @@ public class NotificationController {
     }
 
     public static void viewAlarmNotification(Context context, ArrivalAlarm alarm) {
-        /*Intent resultIntent = new Intent(context, ShowReminder.class);
-        resultIntent.putExtra("id",alarm.getTaskId());*/
+
         Intent resultIntent = new Intent(context,ShowAlarm.class);
         resultIntent.putExtra("id",alarm.getTaskId());
 
@@ -87,16 +79,7 @@ public class NotificationController {
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
 
-/*
-        Intent completeIntent = new Intent();
-        completeIntent.putExtra("task_id", task_id);
-        completeIntent.setAction("complete_action");
-        PendingIntent completePendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, completeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent forgetIntent = new Intent();
-        forgetIntent.putExtra("task_id", task_id);
-        forgetIntent.setAction("forget_action");
-        PendingIntent forgetPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, forgetIntent, PendingIntent.FLAG_UPDATE_CURRENT);*/
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)

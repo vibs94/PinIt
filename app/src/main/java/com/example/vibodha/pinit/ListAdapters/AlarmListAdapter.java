@@ -9,23 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
-import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
 import com.example.vibodha.pinit.View.AddSuccessor;
 import com.example.vibodha.pinit.View.EditAlarm;
 import com.example.vibodha.pinit.View.ViewArrivalAlarm;
-import com.example.vibodha.pinit.View.ViewReminder;
+
 
 import static com.example.vibodha.pinit.R.layout.alarm_list;
-import static com.example.vibodha.pinit.R.layout.reminder_list;
+
 
 /**
  * Created by vibodha on 5/12/17.

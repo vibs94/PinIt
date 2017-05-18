@@ -307,6 +307,7 @@ public class ReminderDB {
         Date date = activity.getTimeofCompletion();
         long result;
         int timeID;
+        //////////// add time to TIME table ////////////
         SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat hour = new SimpleDateFormat("HH");
         SimpleDateFormat min = new SimpleDateFormat("mm");
@@ -317,6 +318,7 @@ public class ReminderDB {
         if(result<0){
             return false;
         }
+        ///////////// change time id in ACTIVITY table /////////////////
         timeID = getCurrentTimeID();
         activityContent.put("time_id_of_completion",timeID);
         result = dbWrite.update("ACTIVITY",activityContent,"activity_id="+activity.getId(),null);
@@ -334,6 +336,7 @@ public class ReminderDB {
         Date date = re.getTimeOfCompletion();
         long result;
         int timeID;
+        ////////////// add time to TIME table //////////////
         SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat hour = new SimpleDateFormat("HH");
         SimpleDateFormat min = new SimpleDateFormat("mm");
@@ -344,6 +347,7 @@ public class ReminderDB {
         if(result<0){
             return false;
         }
+        ////////// change time id in REMINDER table ////////////////
         timeID = getCurrentTimeID();
         reminderContent.put("time_id_of_completion",timeID);
         reminderContent.put("is_completed",1);
@@ -362,6 +366,7 @@ public class ReminderDB {
         Date date = reminder.getLastWakeup();
         long result;
         int timeID;
+        ////////// add time id to TIME table ///////////////
         SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat hour = new SimpleDateFormat("HH");
         SimpleDateFormat min = new SimpleDateFormat("mm");
@@ -372,6 +377,7 @@ public class ReminderDB {
         if(result<0){
             return false;
         }
+        //////////// add time id to WAKEUPS table //////////////
         timeID = getCurrentTimeID();
         wakeupsContent.put("reminder_id",reminder.getTaskId());
         wakeupsContent.put("time_id_of_wakeup",timeID);
@@ -393,7 +399,7 @@ public class ReminderDB {
 
         SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
         SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
-
+        /////////// edit location ///////////////
         ContentValues reminderTableValues = new ContentValues();
         ContentValues locationTableValues = new ContentValues();
         ContentValues priorityTableValues = new ContentValues();
@@ -411,7 +417,7 @@ public class ReminderDB {
 
             return false;
         }
-        //insert to priority table
+        //edit priority table
         priorityTableValues.put("range",reminder.getRange());
         query = "select priority_id from REMINDER_TASK where reminder_id="+reminder.getTaskId();
         cursor =  dbRead.rawQuery(query,null);
@@ -422,7 +428,7 @@ public class ReminderDB {
         if(result<0){
             return false;
         }
-        //insert reminder
+        //edit reminder
         if(reminder.isCompleted()){
             isCompleted = 1;
         }

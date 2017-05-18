@@ -13,11 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.vibodha.pinit.Database.ArrivalAlarmDB;
-import com.example.vibodha.pinit.ListAdapters.ActivityListAdapter;
-import com.example.vibodha.pinit.ListAdapters.AlarmListAdapter;
-import com.example.vibodha.pinit.ListAdapters.IncompleteActivityListAdapter;
 import com.example.vibodha.pinit.ListAdapters.SuccessorListAdapter;
-import com.example.vibodha.pinit.Model.Activity;
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
 import com.example.vibodha.pinit.R;
 

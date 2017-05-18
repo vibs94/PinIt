@@ -4,22 +4,15 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.vibodha.pinit.Controller.AlarmController;
 import com.example.vibodha.pinit.Controller.TaskController;
 import com.example.vibodha.pinit.Database.ArrivalAlarmDB;
-import com.example.vibodha.pinit.Model.Activity;
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
 import com.example.vibodha.pinit.Model.Contact;
-import com.example.vibodha.pinit.Model.Location;
-import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
 
 import java.text.ParseException;

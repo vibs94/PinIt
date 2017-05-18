@@ -14,7 +14,6 @@ import com.example.vibodha.pinit.R;
 import com.example.vibodha.pinit.View.ShowReminder;
 
 import static com.example.vibodha.pinit.R.layout.incomplete_activity_list;
-import static com.example.vibodha.pinit.R.layout.reminder_list;
 
 /**
  * Created by vibodha on 5/15/17.

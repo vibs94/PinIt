@@ -1,9 +1,7 @@
 package com.example.vibodha.pinit.View;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +11,6 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.example.vibodha.pinit.Database.ReminderDB;
-import com.example.vibodha.pinit.Model.Activity;
 import com.example.vibodha.pinit.Model.Location;
 import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
@@ -21,7 +18,6 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 
 public class EditReminder extends AppCompatActivity {
 

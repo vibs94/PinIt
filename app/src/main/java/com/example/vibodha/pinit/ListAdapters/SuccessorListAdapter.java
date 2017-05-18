@@ -9,13 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.example.vibodha.pinit.Model.Activity;
 import com.example.vibodha.pinit.Model.ArrivalAlarm;
 import com.example.vibodha.pinit.R;
 import com.example.vibodha.pinit.View.AddSuccessor;
-import com.example.vibodha.pinit.View.ShowReminder;
 
-import static com.example.vibodha.pinit.R.layout.incomplete_activity_list;
 import static com.example.vibodha.pinit.R.layout.successor_suggestions_list;
 
 /**

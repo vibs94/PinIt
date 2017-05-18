@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.vibodha.pinit.Model.Activity;
-import com.example.vibodha.pinit.Model.Reminder;
 import com.example.vibodha.pinit.R;
 
 import java.text.Format;
@@ -18,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static com.example.vibodha.pinit.R.layout.activity_list;
-import static com.example.vibodha.pinit.R.layout.reminder_list;
+
 
 /**
  * Created by vibodha on 3/30/17.
