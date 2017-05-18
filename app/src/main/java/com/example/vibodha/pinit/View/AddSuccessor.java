@@ -83,7 +83,7 @@ public class AddSuccessor extends AppCompatActivity implements android.widget.Co
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Log.e("listner in","");
+        //Log.e("listner in","");
         if(isChecked && pos!=-1){
             Toast.makeText(AddSuccessor.this,"Cannot add two successors!!!",Toast.LENGTH_SHORT).show();
         }

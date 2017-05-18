@@ -6,16 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     tools:context="com.example.vibodha.pinit.View.ViewReminder">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/view_reminder">
+    <TextView
+        android:text="  View Reminder"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/textView3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,6 +32,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/reminder_location"
             android:hint="Location"
+            android:layout_marginLeft="10dp"
             android:textSize="25dp"
             android:layout_weight="1"/>
         <ImageView
@@ -39,12 +47,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/note"
+        android:layout_marginLeft="10dp"
         android:textSize="25dp"
         android:hint="note"/>
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Activities"/>
+    android:text="Activities"
+    android:layout_marginLeft="10dp"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

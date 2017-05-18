@@ -43,7 +43,7 @@ public class LocationReceiver extends BroadcastReceiver {
 
         int id = intent.getIntExtra("id", -1);
         String taskType = intent.getStringExtra("type");
-        Toast.makeText(context, "Location Receiver works", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Location Receiver works", Toast.LENGTH_SHORT).show();
         Log.w("Loc Receiver works", "");
 
         if (id >-1) {

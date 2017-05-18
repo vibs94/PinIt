@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/location_name_alarm"
             android:layout_weight="1"
-            android:textSize="25dp"
+            android:textSize="20dp"
             />
         <ImageView
             android:layout_width="wrap_content"
