@@ -329,11 +329,11 @@ public class ReminderDB {
         return true;
     }
 
-    public boolean markReminder(Reminder re){
+    public boolean markReminder(Reminder reminder){
         SQLiteDatabase dbWrite = databaseHelper.getWritableDatabase();
         ContentValues timeContent = new ContentValues();
         ContentValues reminderContent = new ContentValues();
-        Date date = re.getTimeOfCompletion();
+        Date date = reminder.getTimeOfCompletion();
         long result;
         int timeID;
         ////////////// add time to TIME table //////////////
@@ -351,11 +351,11 @@ public class ReminderDB {
         timeID = getCurrentTimeID();
         reminderContent.put("time_id_of_completion",timeID);
         reminderContent.put("is_completed",1);
-        result = dbWrite.update("REMINDER_TASK",reminderContent,"reminder_id=?",new  String[] {String.valueOf(re.getTaskId())});
+        result = dbWrite.update("REMINDER_TASK",reminderContent,"reminder_id=?",new  String[] {String.valueOf(reminder.getTaskId())});
         if(result<0){
             return false;
         }
-        //Toast.makeText(context,"Reminder marked"+re.getTimeOfCompletion(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,"Reminder marked"+reminder.getTimeOfCompletion(),Toast.LENGTH_SHORT).show();
         return true;
     }
 
