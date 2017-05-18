@@ -37,7 +37,7 @@ public class AddSuccessor extends AppCompatActivity implements android.widget.Co
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        getWindow().setLayout((int)(width*0.9),(int) (height*0.9));
+        getWindow().setLayout((int)(width*0.8),(int) (height*0.9));
 
         final ArrivalAlarmDB arrivalAlarmDB = ArrivalAlarmDB.getInstance(this);
         final int id = getIntent().getIntExtra("id",-1);
