@@ -1,11 +1,13 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/map_view">
     <fragment
         android:id="@+id/place_autocomplete_fragment"
         android:layout_width="match_parent"
@@ -62,5 +64,15 @@
 
 
 </RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_margin="10dp"
+        android:id="@+id/btn_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:borderWidth="0dp"
+        app:elevation="8dp"
+        app:layout_anchor="@id/map_view"
+        app:layout_anchorGravity="bottom|right|end"
+        app:srcCompat="@drawable/ic_action_home" />
 
-
+</android.support.design.widget.CoordinatorLayout>

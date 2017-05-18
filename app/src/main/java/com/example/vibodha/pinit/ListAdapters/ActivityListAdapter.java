@@ -44,12 +44,12 @@ public class ActivityListAdapter extends ArrayAdapter<Activity> {
             Format dateFormate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String date = dateFormate.format(completionDate);
             completeDate.setText("Activity was completed on "+date);
-            isCompleted.setImageResource(R.drawable.tik);
+            isCompleted.setImageResource(R.drawable.ic_tik);
         }
 
         else {
             completeDate.setText("Activity not completed yet!");
-            isCompleted.setImageResource(R.drawable.cross);
+            isCompleted.setImageResource(R.drawable.ic_cross);
         }
 
 
