@@ -73,16 +73,27 @@ public class AddSuccessor extends AppCompatActivity implements android.widget.Co
         addSucce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    ArrivalAlarm alarm = arrivalAlarmDB.getArrivalAlarm(id);
-                    alarm.setSuccessorAlarm(successors.get(pos));
-                    arrivalAlarmDB.addSuccessor(alarm);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
 
-                Intent intent = new Intent(AddSuccessor.this,MainActivity.class);
-                startActivity(intent);
+                    try {
+                        ArrivalAlarm alarm = arrivalAlarmDB.getArrivalAlarm(id);
+                        if(pos<0){
+                            Toast.makeText(AddSuccessor.this,"Select an alarm location.",Toast.LENGTH_SHORT).show();
+                        }
+                        else if(successors.get(pos).getSuccessorAlarm()!=null && successors.get(pos).getSuccessorAlarm().getTaskId()==alarm.getTaskId()){
+                            Toast.makeText(AddSuccessor.this,"Two alarms can not be each others successors!!!",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                        alarm.setSuccessorAlarm(successors.get(pos));
+                        arrivalAlarmDB.addSuccessor(alarm);
+                            Intent intent = new Intent(AddSuccessor.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
+
             }
         });
 

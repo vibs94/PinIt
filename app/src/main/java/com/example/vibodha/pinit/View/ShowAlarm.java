@@ -22,6 +22,7 @@ public class ShowAlarm extends AppCompatActivity {
 
     TextView message;
     Button off;
+    TextView succ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class ShowAlarm extends AppCompatActivity {
             ArrivalAlarm alarm = alarmDB.getArrivalAlarm(id);
             message = (TextView) findViewById(R.id.txt_message);
             off = (Button) findViewById(R.id.off_alarm);
+            succ = (TextView) findViewById(R.id.show_next);
             contacts = alarm.getContacts();
             String contactName = "";
             int i;
@@ -49,6 +51,12 @@ public class ShowAlarm extends AppCompatActivity {
         }
         else {
                 message.setText("Message has been sent to " + contactName);
+            }
+            if(alarm.getSuccessorAlarm()!=null){
+                succ.setText("You are suppose to go to "+alarm.getSuccessorAlarm().getLocation().getLocationName()+" next.");
+            }
+            else{
+                succ.setVisibility(View.GONE);
             }
         } catch (ParseException e) {
             e.printStackTrace();
