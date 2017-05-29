@@ -8,5 +8,8 @@
     <item android:id="@+id/nav_alarm"
         android:title="Alarm Positions"
         android:icon="@drawable/ic_alarm"/>
+    <!--<item android:id="@+id/nav_report"
+        android:title="Daily Report"
+        />-->
 
 </menu>

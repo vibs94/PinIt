@@ -252,6 +252,10 @@ public class MainActivity extends AppCompatActivity implements TaskDialog.TaskDi
             alarmMap.putExtra("type",2);
             startActivity(alarmMap);
         }
+        /*if(id==R.id.nav_report){
+            Intent report = new Intent(MainActivity.this,TodayReport.class);
+            startActivity(report);
+        }*/
         return false;
     }
 

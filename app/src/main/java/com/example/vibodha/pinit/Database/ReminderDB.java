@@ -85,15 +85,34 @@ public class ReminderDB {
         else{
             return false;
         }
+        ContentValues timeContent = new ContentValues();
+        Date date = new Date(System.currentTimeMillis());
+        int timeID;
+        //////////// add time to TIME table ////////////
+        SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat hour = new SimpleDateFormat("HH");
+        SimpleDateFormat min = new SimpleDateFormat("mm");
+        timeContent.put("datee",day.format(date));
+        timeContent.put("hour",hour.format(date));
+        timeContent.put("min",min.format(date));
+        result = dbWrite.insert("TIME",null,timeContent);
+        if(result<0){
+            Log.e("error1","");
+            return false;
+        }
+        timeID = getCurrentTimeID();
+
         //insert reminder
         reminderTableValues.put("reminder_id",reminder.getTaskId());
         reminderTableValues.put("location_id",locationID);
         reminderTableValues.put("time_id_of_completion","-1");
+        reminderTableValues.put("time_id",timeID);
         reminderTableValues.put("priority_id",priorityID);
         reminderTableValues.put("is_completed","0");
         reminderTableValues.put("note",reminder.getNote());
         result = dbWrite.insert("REMINDER_TASK",null,reminderTableValues);
         if(result<0){
+            Log.e("error2","");
             return false;
         }
 
@@ -298,6 +317,40 @@ public class ReminderDB {
             }
         }
         return reminders;
+    }
+
+    public ArrayList<Reminder> getRemindersAddedOn(String date) throws ParseException {
+        Log.e("date",date);
+        SQLiteDatabase dbRead = databaseHelper.getReadableDatabase();
+        Cursor cursor;
+        int reminderID;
+        String query;
+        Reminder reminder;
+        ArrayList<Reminder> reminders = new ArrayList<Reminder>();
+
+        query = "select reminder_id from REMINDER_TASK join TIME using(time_id) where datee ="+date;
+        cursor = dbRead.rawQuery(query,null);
+        while(cursor.moveToNext()){
+            reminderID = cursor.getInt(cursor.getColumnIndex("reminder_id"));
+            reminder = getReminder(reminderID);
+            reminders.add(reminder);
+        }
+        query = "select * from TIME";
+        cursor = dbRead.rawQuery(query,null);
+        while(cursor.moveToNext()){
+            Log.e("date",cursor.getString(cursor.getColumnIndex("datee")));
+            Log.e("id",String.valueOf(cursor.getInt(cursor.getColumnIndex("time_id"))));
+
+        }
+        query = "select * from REMINDER_TASK";
+        cursor = dbRead.rawQuery(query,null);
+        while(cursor.moveToNext()){
+            Log.e("date",String.valueOf(cursor.getInt(cursor.getColumnIndex("reminder_id"))));
+            Log.e("id",String.valueOf(cursor.getInt(cursor.getColumnIndex("time_id"))));
+
+        }
+        return reminders;
+
     }
 
     public boolean markActivity(Activity activity){

@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private DatabaseHelper(Context context) {
 
-        super(context, databaseName, null, 1);
+        super(context, databaseName, null, 3);
     }
     //singleton
     public static DatabaseHelper getInstance(Context context){
@@ -36,11 +36,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "successor_alarm_id integer,is_wakeup integer, range integer," +
                 "foreign key(location_id) references location(location_id)," +
                 "foreign key(time_id_of_completion) references time(time_id)," +
+
                 "foreign key(successor_alarm_id) references arrival_alarm_task(arrival_alarm_id));");
-        db.execSQL("create table REMINDER_TASK(reminder_id integer primary key, location_id integer, time_id_of_completion integer, priority_id integer, " +
+        db.execSQL("create table REMINDER_TASK(reminder_id integer primary key, location_id integer, time_id_of_completion integer, priority_id integer,time_id integer, " +
                 "is_completed integer, note varchar(100)," +
                 "foreign key(location_id) references location(location_id)," +
                 "foreign key(time_id_of_completion) references time(time_id)," +
+                "foreign key(time_id) references time(time_id)," +
                 "foreign key(priority_id) references priority(priority_id));");
         db.execSQL("create table ACTIVITY(activity_id integer primary key, reminder_id integer, time_id_of_completion integer, description varchar(100)," +
                 "foreign key(reminder_id) references reminder_task(reminder_id)," +
